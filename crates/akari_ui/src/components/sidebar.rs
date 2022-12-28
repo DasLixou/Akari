@@ -1,9 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::icons::{
-    book_open::BookOpenIcon, calendar_days::CalenderDaysIcon, cog_8_tooth::Cog8ToothIcon,
-    document_plus::DocumentPlusIcon, pencil_square::PencilSquareIcon,
-};
+use crate::icons::{Icon, OutlineIcon};
 
 pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
@@ -13,19 +10,27 @@ pub fn Sidebar(cx: Scope) -> Element {
                 "Akari"
             },
             SidebarElement {
-                PencilSquareIcon {}
+                OutlineIcon {
+                    icon: Icon::PencilSquare
+                }
             }
             SidebarElement {
-                BookOpenIcon {}
+                OutlineIcon {
+                    icon: Icon::BookOpen
+                }
             }
             SidebarElement {
-                CalenderDaysIcon {}
+                OutlineIcon {
+                    icon: Icon::CalenderDays
+                }
             }
             div {
                 class: "grow"
             }
             SidebarElement {
-                Cog8ToothIcon {}
+                OutlineIcon {
+                    icon: Icon::Cog8Tooth
+                }
             }
         }
     })

@@ -1,5 +1,11 @@
-pub mod book_open;
-pub mod calendar_days;
-pub mod cog_8_tooth;
-pub mod document_plus;
-pub mod pencil_square;
+mod outline;
+pub use outline::*;
+
+#[derive(PartialEq)]
+pub enum Icon {
+    BookOpen,
+    CalenderDays,
+    Cog8Tooth,
+    DocumentPlus,
+    PencilSquare,
+}
