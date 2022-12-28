@@ -6,46 +6,61 @@ pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
         ul {
             class: "flex flex-col shadow h-screen min-h-screen w-16 items-center",
-            SidebarElement {
+            li {
+                class: "flex w-16 h-16 p-3 items-center justify-center overflow-hidden",
                 "Akari"
             },
             SidebarElement {
-                SolidIcon {
-                    icon: Icon::PencilSquare
-                }
+                icon: Icon::PencilSquare,
+                active: false,
             }
             SidebarElement {
-                OutlineIcon {
-                    icon: Icon::BookOpen
-                }
+                icon: Icon::BookOpen,
+                active: true,
             }
             SidebarElement {
-                SolidIcon {
-                    icon: Icon::CalenderDays
-                }
+                icon: Icon::CalenderDays,
+                active: false,
             }
             div {
                 class: "grow"
             }
             SidebarElement {
-                OutlineIcon {
-                    icon: Icon::Cog8Tooth
-                }
+                icon: Icon::Cog8Tooth,
+                active: false,
             }
         }
     })
 }
 
-#[derive(Props)]
-pub struct SidebarElementProps<'a> {
-    children: Element<'a>,
+#[derive(Props, PartialEq)]
+pub struct SidebarElementProps {
+    active: bool,
+    icon: Icon,
 }
 
-pub fn SidebarElement<'a>(cx: Scope<'a, SidebarElementProps<'a>>) -> Element {
+pub fn SidebarElement(cx: Scope<SidebarElementProps>) -> Element {
+    let class = match cx.props.active {
+        true => {
+            "flex w-16 h-16 p-3 items-center justify-center overflow-hidden bg-black text-white"
+        }
+        false => {
+            "flex w-16 h-16 p-3 items-center justify-center overflow-hidden bg-white text-black"
+        }
+    };
+    let icon = cx.props.icon.clone();
+    let icon = match cx.props.active {
+        true => rsx! {
+            SolidIcon { icon: icon }
+        },
+        false => rsx! {
+            OutlineIcon { icon: icon }
+        },
+    };
     cx.render(rsx! {
         li {
-            class: "flex w-16 h-16 p-3 items-center justify-center overflow-hidden",
-            &cx.props.children
+            class: "{class}",
+            icon
         }
     })
 }
