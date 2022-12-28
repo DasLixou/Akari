@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+akari_books = { path = "../akari_books" }
 dioxus = { version = "0.2.4", features = ["desktop", "fermi"] }
 log = "0.4.17"
