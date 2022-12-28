@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::icons::{Icon, OutlineIcon};
+use crate::icons::{Icon, OutlineIcon, SolidIcon};
 
 pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
@@ -10,7 +10,7 @@ pub fn Sidebar(cx: Scope) -> Element {
                 "Akari"
             },
             SidebarElement {
-                OutlineIcon {
+                SolidIcon {
                     icon: Icon::PencilSquare
                 }
             }
@@ -20,7 +20,7 @@ pub fn Sidebar(cx: Scope) -> Element {
                 }
             }
             SidebarElement {
-                OutlineIcon {
+                SolidIcon {
                     icon: Icon::CalenderDays
                 }
             }
