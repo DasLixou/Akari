@@ -1,6 +1,9 @@
-use dioxus::prelude::*;
+use dioxus::{fermi::use_atom_state, prelude::*};
 
-use crate::icons::{Icon, OutlineIcon, SolidIcon};
+use crate::{
+    icons::{Icon, OutlineIcon, SolidIcon},
+    Screen, CURRENT_SCREEN,
+};
 
 pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
@@ -12,22 +15,22 @@ pub fn Sidebar(cx: Scope) -> Element {
             },
             SidebarElement {
                 icon: Icon::PencilSquare,
-                active: false,
+                screen: Screen::Scribe,
             }
             SidebarElement {
                 icon: Icon::BookOpen,
-                active: true,
+                screen: Screen::Books,
             }
             SidebarElement {
                 icon: Icon::CalenderDays,
-                active: false,
+                screen: Screen::Calender,
             }
             div {
                 class: "grow"
             }
             SidebarElement {
                 icon: Icon::Cog8Tooth,
-                active: false,
+                screen: Screen::Settings,
             }
         }
     })
@@ -35,12 +38,15 @@ pub fn Sidebar(cx: Scope) -> Element {
 
 #[derive(Props, PartialEq)]
 pub struct SidebarElementProps {
-    active: bool,
     icon: Icon,
+    screen: Screen,
 }
 
 pub fn SidebarElement(cx: Scope<SidebarElementProps>) -> Element {
-    let class = match cx.props.active {
+    let current_screen = use_atom_state(&cx, CURRENT_SCREEN);
+    let active = current_screen.get() == &cx.props.screen;
+
+    let class = match active {
         true => {
             "flex w-16 h-16 p-3 items-center justify-center overflow-hidden bg-black text-white"
         }
@@ -49,7 +55,7 @@ pub fn SidebarElement(cx: Scope<SidebarElementProps>) -> Element {
         }
     };
     let icon = cx.props.icon.clone();
-    let icon = match cx.props.active {
+    let icon = match active {
         true => rsx! {
             SolidIcon { icon: icon }
         },
@@ -57,10 +63,16 @@ pub fn SidebarElement(cx: Scope<SidebarElementProps>) -> Element {
             OutlineIcon { icon: icon }
         },
     };
+
     cx.render(rsx! {
         li {
-            class: "{class}",
-            icon
+            button {
+                class: "{class}",
+                onclick: move |_evt| {
+                    current_screen.set(cx.props.screen.clone())
+                },
+                icon
+            }
         }
     })
 }
