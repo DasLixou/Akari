@@ -1,10 +1,11 @@
-use std::{fs::File, io::BufReader};
-
+use book::Book;
 use epub::doc::EpubDoc;
 use log::error;
 
+pub mod book;
+
 pub struct BookFiles {
-    pub books: Vec<EpubDoc<BufReader<File>>>,
+    pub books: Vec<Book>,
 }
 
 impl BookFiles {
@@ -29,7 +30,7 @@ impl BookFiles {
                     return BookFiles { books: vec![] };
                 }
             };
-            books.push(doc);
+            books.push(Book::new(doc));
         }
         Self { books }
     }
