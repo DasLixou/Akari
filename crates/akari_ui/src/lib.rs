@@ -6,6 +6,7 @@ use log::info;
 use crate::{components::sidebar::Sidebar, screens::home::HomeScreen};
 
 mod components;
+mod icons;
 mod screens;
 
 pub fn launch() {

@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
 
+use crate::icons::{cog_8_tooth::Cog8ToothIcon, document_plus::DocumentPlusIcon};
+
 pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
         ul {
@@ -8,13 +10,13 @@ pub fn Sidebar(cx: Scope) -> Element {
                 "Akari"
             },
             SidebarElement {
-                "New Page"
+                DocumentPlusIcon {}
             }
             div {
                 class: "grow"
             }
             SidebarElement {
-                "Settings"
+                Cog8ToothIcon {}
             }
         }
     })
