@@ -28,10 +28,10 @@ pub fn BooksScreen(cx: Scope) -> Element {
 pub fn BookPresentation<'a>(cx: Scope, book: &'a Book) -> Element {
     cx.render(rsx! {
         li {
-            class: "flex px-10 py-3 h-56 w-full border-b border-gray-200",
+            class: "flex px-10 py-3 h-56 w-full border-b border-gray-100",
             img {
                 class: "w-36 h-auto object-contain",
-                src: "{book.cover_src}"
+                src: "{book.cover}"
             },
             div {
                 class: "flex flex-col pl-3 justify-center",

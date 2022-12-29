@@ -8,7 +8,7 @@ use crate::{
 pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
         ul {
-            class: "flex flex-col shadow h-screen min-h-screen w-16 items-center",
+            class: "flex flex-col shadow h-screen min-h-screen w-16 items-center sticky left-0 top-0",
             li {
                 class: "flex w-16 h-16 p-3 items-center justify-center overflow-hidden",
                 "Akari"

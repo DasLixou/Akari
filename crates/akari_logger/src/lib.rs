@@ -14,6 +14,7 @@ impl AkariLogger {
             Ok(_) => info!("Logger initialized successfully!"),
             Err(err) => panic!("Couldn't init AkariLogger: `{}`", err),
         }
+        log_panics::init();
     }
 }
 
