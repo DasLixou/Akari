@@ -1,50 +1,70 @@
+use std::{cell::RefCell, rc::Rc};
+
 use dioxus::prelude::*;
 use log::info;
 
-use crate::icons::{Icon, OutlineIcon, SolidIcon};
+use crate::{
+    hooks::use_sidebar::UseSidebar,
+    icons::{Icon, OutlineIcon, SolidIcon},
+    sidebar::{SidebarData, SidebarElement},
+};
 
-pub fn MainSidebar(cx: Scope) -> Element {
+// TODO: maybe move and make it modular
+fn Applications(cx: Scope) -> Element {
     cx.render(rsx! {
-        Sidebar {
-            NavigationSidebarElement {
-                icon: Icon::DocumentPlus,
-                path: "/",
-            },
-            NavigationSidebarElement {
-                icon: Icon::PencilSquare,
-                path: "/scribe",
-            }
-            NavigationSidebarElement {
-                icon: Icon::BookOpen,
-                path: "/books",
-            }
-            NavigationSidebarElement {
-                icon: Icon::CalenderDays,
-                path: "/calender",
-            }
-            div {
-                class: "grow"
-            }
-            NavigationSidebarElement {
-                icon: Icon::Cog8Tooth,
-                path: "/settings",
-            }
+        NavigationSidebarElement {
+            icon: Icon::DocumentPlus,
+            path: "/",
+        },
+        NavigationSidebarElement {
+            icon: Icon::PencilSquare,
+            path: "/scribe",
+        }
+        NavigationSidebarElement {
+            icon: Icon::BookOpen,
+            path: "/books",
+        }
+        NavigationSidebarElement {
+            icon: Icon::CalenderDays,
+            path: "/calender",
+        }
+        div {
+            class: "grow"
+        }
+        NavigationSidebarElement {
+            icon: Icon::Cog8Tooth,
+            path: "/settings",
         }
     })
 }
 
-#[inline_props]
-pub fn Sidebar<'a>(cx: Scope, children: Element<'a>) -> Element {
+pub fn Sidebar<'a>(cx: Scope) -> Element {
+    let sidebar_data = cx.use_hook(|_| match cx.consume_context::<Rc<UseSidebar>>() {
+        Some(data) => data,
+        None => cx.provide_context(Rc::new(UseSidebar(RefCell::new(SidebarData::Applications)))),
+    });
+
     cx.render(rsx! {
         ul {
             class: "flex flex-col shadow h-screen min-h-screen w-16 items-center sticky left-0 top-0",
-            children
+            match *(**sidebar_data).0.borrow() {
+                SidebarData::Applications => rsx! { Applications {} },
+                SidebarData::Custom(elements) => rsx! {
+                    elements.iter().map(|elem| match elem {
+                        SidebarElement::Seperator => rsx!(div { class: "grow" }),
+                        SidebarElement::Navigator(icon, path) => rsx!(NavigationSidebarElement {
+                            icon: icon.clone(),
+                            path: path,
+                        }),
+                    })
+                },
+            }
         }
     })
 }
 
 #[inline_props]
-pub fn SidebarElement<'a>(cx: Scope, class: Option<&'a str>, children: Element<'a>) -> Element {
+pub fn SidebarElementBox<'a>(cx: Scope, class: Option<&'a str>, children: Element<'a>) -> Element {
     let class = class.unwrap_or_default();
     cx.render(rsx! {
         li {
@@ -80,7 +100,7 @@ pub fn NavigationSidebarElement<'a>(cx: Scope, icon: Icon, path: &'a str) -> Ele
     cx.render(rsx! {
         Link {
             to: path,
-            SidebarElement {
+            SidebarElementBox {
                 class: "{class}",
                 icon
             }

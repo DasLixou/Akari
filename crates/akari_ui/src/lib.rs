@@ -1,11 +1,14 @@
 #![allow(non_snake_case)]
 
-use dioxus::{fermi::use_atom_state, prelude::*};
+use dioxus::prelude::*;
 use log::info;
 
-use crate::screens::{
-    books::BooksScreen, calender::CalenderScreen, home::HomeScreen, scribe::ScribeScreen,
-    settings::SettingsScreen,
+use crate::{
+    components::sidebar::Sidebar,
+    screens::{
+        books::BooksScreen, calender::CalenderScreen, home::HomeScreen, scribe::ScribeScreen,
+        settings::SettingsScreen,
+    },
 };
 
 mod components;
@@ -28,13 +31,18 @@ fn app(cx: Scope) -> Element {
             vec![STYLES]
         },
 
-        Router {
-            Route { to: "/", HomeScreen {} }
-            Route { to: "/scribe", ScribeScreen {} }
-            Route { to: "/books", BooksScreen {} }
-            Route { to: "/calender", CalenderScreen {} }
-            Route { to: "/settings", SettingsScreen {} }
-            Route { to: "", HomeScreen {} }
+        main {
+            class: "flex",
+            Router {
+                Sidebar {},
+
+                Route { to: "/", HomeScreen {} }
+                Route { to: "/scribe", ScribeScreen {} }
+                Route { to: "/books", BooksScreen {} }
+                Route { to: "/calender", CalenderScreen {} }
+                Route { to: "/settings", SettingsScreen {} }
+                Route { to: "", HomeScreen {} }
+            }
         }
     })
 }

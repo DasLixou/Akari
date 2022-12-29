@@ -16,4 +16,4 @@ pub fn use_sidebar(cx: &ScopeState, data: fn() -> SidebarData<'static>) {
     });
 }
 
-pub(crate) struct UseSidebar<'a>(RefCell<SidebarData<'a>>);
+pub(crate) struct UseSidebar<'a>(pub(crate) RefCell<SidebarData<'a>>);
