@@ -41,7 +41,7 @@ fn app(cx: Scope) -> Element {
     };
     cx.render(rsx! {
         main {
-            class: "flex",
+            class: "flex select-none",
             Sidebar {},
             screen
         }
