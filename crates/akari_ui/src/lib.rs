@@ -1,6 +1,5 @@
 #![allow(non_snake_case)]
 
-use const_format::formatcp;
 use dioxus::{fermi::use_atom_state, prelude::*};
 use log::info;
 
