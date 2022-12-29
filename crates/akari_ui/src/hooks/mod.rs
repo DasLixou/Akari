@@ -1,1 +1,3 @@
-pub mod use_sidebar;
+mod use_sidebar;
+
+pub use use_sidebar::*;

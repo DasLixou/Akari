@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+use components::sidebar::init_sidebar_data;
 use dioxus::prelude::*;
 use log::info;
 
@@ -26,6 +27,8 @@ pub fn launch() {
 }
 
 fn app(cx: Scope) -> Element {
+    init_sidebar_data(&cx);
+
     cx.render(rsx! {
         style {
             vec![STYLES]

@@ -7,10 +7,9 @@ use crate::sidebar::SidebarData;
 
 /// This hook provides access to the sidebar
 pub fn use_sidebar(cx: &ScopeState, data: fn() -> SidebarData<'static>) {
-    let sidebar_data = data();
-    cx.use_hook(move |_| match cx.consume_context::<Rc<UseSidebar>>() {
+    cx.use_hook(|_| match cx.consume_context::<Rc<UseSidebar>>() {
         Some(use_sidebar) => {
-            use_sidebar.0.replace(sidebar_data);
+            use_sidebar.0.replace(data());
         }
         None => panic!("Couldn't find UseSidebar"),
     });

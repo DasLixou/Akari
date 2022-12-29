@@ -4,7 +4,7 @@ pub use outline::*;
 mod solid;
 pub use solid::*;
 
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum Icon {
     BookOpen,
     CalenderDays,
