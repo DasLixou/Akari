@@ -1,6 +1,6 @@
 #![allow(non_snake_case)]
 
-use dioxus::prelude::*;
+use dioxus::{fermi::use_atom_state, prelude::*};
 use log::info;
 
 use crate::screens::{
@@ -9,8 +9,11 @@ use crate::screens::{
 };
 
 mod components;
+mod hooks;
 mod icons;
+mod screen;
 mod screens;
+mod sidebar;
 
 static STYLES: &'static str = include_str!("../tailwind/generated.css");
 
