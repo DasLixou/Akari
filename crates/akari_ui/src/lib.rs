@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+use const_format::formatcp;
 use dioxus::{fermi::use_atom_state, prelude::*};
 use log::info;
 
@@ -15,13 +16,13 @@ mod components;
 mod icons;
 mod screens;
 
+static STYLES: &'static str = include_str!("../tailwind/generated.css");
+
 static CURRENT_SCREEN: Atom<Screen> = |_| Screen::Scribe;
 
 pub fn launch() {
     info!("Launching Akari UI");
-    dioxus::desktop::launch_cfg(app, |c| {
-        c.with_custom_head("<script src=\"https://cdn.tailwindcss.com\"></script>".to_string())
-    });
+    dioxus::desktop::launch_cfg(app, |c| c);
 }
 
 #[derive(PartialEq, Clone)]
@@ -40,6 +41,10 @@ fn app(cx: Scope) -> Element {
         Screen::Settings => rsx!(SettingsScreen {}),
     };
     cx.render(rsx! {
+        style {
+            vec![STYLES]
+        },
+
         main {
             class: "flex select-none",
             Sidebar {},
