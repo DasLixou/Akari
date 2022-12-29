@@ -6,7 +6,7 @@ build = "tailwind/generate_tailwind.rs"
 
 [dependencies]
 akari_books = { path = "../akari_books" }
-dioxus = { version = "0.2.4", features = ["desktop", "fermi"] }
+dioxus = { version = "0.2.4", features = ["desktop", "fermi", "router"] }
 log = "0.4.17"
 
 [build-dependencies]

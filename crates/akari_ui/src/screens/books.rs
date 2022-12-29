@@ -1,24 +1,30 @@
 use akari_books::{book::Book, BookFiles};
 use dioxus::prelude::*;
 
+use crate::components::sidebar::MainSidebar;
+
 pub fn BooksScreen(cx: Scope) -> Element {
     let files = use_future(&cx, (), |_| async move { BookFiles::new() });
 
     cx.render(rsx! {
-        ul {
-            class: "w-full",
-            match files.value() {
-                None => rsx! { "loading.." },
-                Some(books) => rsx! {
-                    books.books.iter().enumerate().map(|(i, book)| {
-                        rsx! {
-                            BookPresentation {
-                                key: "{i}",
-                                book: &book,
+        main {
+            class: "flex",
+            MainSidebar {},
+            ul {
+                class: "w-full",
+                match files.value() {
+                    None => rsx! { "loading.." },
+                    Some(books) => rsx! {
+                        books.books.iter().enumerate().map(|(i, book)| {
+                            rsx! {
+                                BookPresentation {
+                                    key: "{i}",
+                                    book: &book,
+                                }
                             }
-                        }
-                    })
-                },
+                        })
+                    },
+                }
             }
         }
     })

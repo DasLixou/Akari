@@ -1,7 +1,7 @@
 use duct::cmd;
 
 fn main() {
-    /*cmd!(
+    cmd!(
         "npx",
         "tailwindcss",
         "-i",
@@ -10,5 +10,5 @@ fn main() {
         "./tailwind/generated.css",
     )
     .read()
-    .unwrap();*/
+    .unwrap();
 }

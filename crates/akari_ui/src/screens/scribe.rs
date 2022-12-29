@@ -1,10 +1,13 @@
 use dioxus::prelude::*;
 
+use crate::components::sidebar::MainSidebar;
+
 pub fn ScribeScreen(cx: Scope) -> Element {
     cx.render(rsx! {
         main {
-            class: "p-3",
-            h1 { class: "flex justify-center", "Akari | Home" }
+            class: "flex",
+            MainSidebar {},
+            h1 { "Akari" }
         }
     })
 }
