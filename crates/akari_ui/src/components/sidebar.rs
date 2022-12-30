@@ -17,7 +17,7 @@ const APPLICATION_SIDEBAR: &'static [SidebarElement<'static>] = &[
     SidebarElement::Navigator(Icon::Cog8Tooth, "/settings"),
 ];
 
-const BACK_ELEMENT: SidebarElement = SidebarElement::Navigator(Icon::DocumentPlus, "/"); // TODO: make "/" to just one segment back
+const BACK_ELEMENT: SidebarElement = SidebarElement::Navigator(Icon::XMark, "/"); // TODO: make "/" to just one segment back
 
 pub(crate) fn init_sidebar_data(cx: &Scope) {
     use_context_provider(&cx, || UseSidebar(SidebarData::Applications));

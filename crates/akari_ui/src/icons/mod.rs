@@ -11,4 +11,5 @@ pub enum Icon {
     Cog8Tooth,
     DocumentPlus,
     PencilSquare,
+    XMark,
 }
