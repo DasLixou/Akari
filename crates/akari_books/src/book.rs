@@ -9,6 +9,7 @@ pub struct Book {
     pub creator: String,
     pub cover: String,
     pub id: BookID,
+    pub doc: EpubDoc<BufReader<File>>,
 }
 
 impl Book {
@@ -27,6 +28,7 @@ impl Book {
             creator: doc.mdata("creator").unwrap_or_default(),
             cover,
             id: doc.mdata("identifier").unwrap_or_default(),
+            doc,
         }
     }
 }
