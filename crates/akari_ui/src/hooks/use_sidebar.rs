@@ -1,5 +1,4 @@
 use core::panic;
-use std::cell::RefCell;
 
 use dioxus::prelude::*;
 
@@ -11,7 +10,7 @@ pub fn use_sidebar(cx: &ScopeState, data: fn() -> SidebarData<'static>) {
         Some(use_sidebar) => use_sidebar,
         None => panic!("Couldn't find UseSidebar"),
     };
-    cx.use_hook(|_| sidebar.write().0.replace(data()));
+    cx.use_hook(|_| sidebar.write().0 = data());
 }
 
-pub(crate) struct UseSidebar<'a>(pub(crate) RefCell<SidebarData<'a>>);
+pub(crate) struct UseSidebar<'a>(pub(crate) SidebarData<'a>);

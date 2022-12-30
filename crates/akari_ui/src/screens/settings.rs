@@ -8,7 +8,10 @@ use crate::{
 
 pub fn SettingsScreen(cx: Scope) -> Element {
     use_sidebar(&cx, || {
-        SidebarData::Custom(&[SidebarElement::Navigator(Icon::CalenderDays, "/")])
+        SidebarData::SubPage(&[
+            SidebarElement::Navigator(Icon::Cog8Tooth, "/settings/example"),
+            SidebarElement::Navigator(Icon::Cog8Tooth, "/settings/example2"),
+        ])
     });
 
     cx.render(rsx! {

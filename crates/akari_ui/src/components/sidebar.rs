@@ -1,5 +1,3 @@
-use std::{cell::RefCell, rc::Rc};
-
 use dioxus::prelude::*;
 use log::info;
 
@@ -10,36 +8,19 @@ use crate::{
 };
 
 // TODO: maybe move and make it modular
-fn Applications(cx: Scope) -> Element {
-    cx.render(rsx! {
-        NavigationSidebarElement {
-            icon: Icon::DocumentPlus,
-            path: "/",
-        },
-        NavigationSidebarElement {
-            icon: Icon::PencilSquare,
-            path: "/scribe",
-        }
-        NavigationSidebarElement {
-            icon: Icon::BookOpen,
-            path: "/books",
-        }
-        NavigationSidebarElement {
-            icon: Icon::CalenderDays,
-            path: "/calender",
-        }
-        div {
-            class: "grow"
-        }
-        NavigationSidebarElement {
-            icon: Icon::Cog8Tooth,
-            path: "/settings",
-        }
-    })
-}
+const APPLICATION_SIDEBAR: &'static [SidebarElement<'static>] = &[
+    SidebarElement::Navigator(Icon::DocumentPlus, "/"),
+    SidebarElement::Navigator(Icon::PencilSquare, "/scribe"),
+    SidebarElement::Navigator(Icon::BookOpen, "/books"),
+    SidebarElement::Navigator(Icon::CalenderDays, "/calender"),
+    SidebarElement::Seperator,
+    SidebarElement::Navigator(Icon::Cog8Tooth, "/settings"),
+];
+
+const BACK_ELEMENT: SidebarElement = SidebarElement::Navigator(Icon::DocumentPlus, "/"); // TODO: make "/" to just one segment back
 
 pub(crate) fn init_sidebar_data(cx: &Scope) {
-    use_context_provider(&cx, || UseSidebar(RefCell::new(SidebarData::Applications)));
+    use_context_provider(&cx, || UseSidebar(SidebarData::Applications));
 }
 
 pub fn Sidebar<'a>(cx: Scope) -> Element {
@@ -48,21 +29,36 @@ pub fn Sidebar<'a>(cx: Scope) -> Element {
         None => panic!("Couldn't find UseSidebar"),
     };
 
+    let elements = use_state::<Vec<SidebarElement>>(&cx, || vec![]);
+
+    use_effect(&cx, &sidebar_data.read().0, |data| {
+        info!("KEK");
+        let value = match data {
+            SidebarData::Applications => Vec::from(APPLICATION_SIDEBAR),
+            SidebarData::SubPage(custom) => {
+                let mut vec = Vec::with_capacity(custom.len() + 1);
+                vec.push(BACK_ELEMENT);
+                vec.extend_from_slice(custom);
+                vec
+            }
+        };
+        elements.set(value);
+        async {}
+    });
+
     cx.render(rsx! {
         ul {
             class: "flex flex-col shadow h-screen min-h-screen w-16 items-center sticky left-0 top-0",
-            match *sidebar_data.read().0.borrow() {
-                SidebarData::Applications => rsx! { Applications {} },
-                SidebarData::Custom(elements) => rsx! {
-                    elements.iter().map(|elem| match elem {
-                        SidebarElement::Seperator => rsx!(div { class: "grow" }),
-                        SidebarElement::Navigator(icon, path) => rsx!(NavigationSidebarElement {
-                            icon: icon.clone(),
-                            path: path,
-                        }),
-                    })
-                },
-            }
+            rsx! {
+                elements.iter().enumerate().map(|(i, elem)| match elem {
+                    SidebarElement::Seperator => rsx!(div { key: "{i}", class: "grow" }),
+                    SidebarElement::Navigator(icon, path) => rsx!(NavigationSidebarElement {
+                        key: "{i}",
+                        icon: icon.clone(),
+                        path: path,
+                    }),
+                })
+            },
         }
     })
 }

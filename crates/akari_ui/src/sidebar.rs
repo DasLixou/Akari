@@ -1,12 +1,12 @@
 use crate::icons::Icon;
 
-#[derive(Debug)]
+#[derive(PartialEq, Clone)]
 pub enum SidebarData<'a> {
     Applications,
-    Custom(&'a [SidebarElement<'a>]),
+    SubPage(&'a [SidebarElement<'a>]),
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Clone)]
 pub enum SidebarElement<'a> {
     Navigator(Icon, &'a str),
     Seperator,
