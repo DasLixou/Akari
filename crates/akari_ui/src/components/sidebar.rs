@@ -39,19 +39,19 @@ fn Applications(cx: Scope) -> Element {
 }
 
 pub(crate) fn init_sidebar_data(cx: &Scope) {
-    cx.provide_context(Rc::new(UseSidebar(RefCell::new(SidebarData::Applications))));
+    use_context_provider(&cx, || UseSidebar(RefCell::new(SidebarData::Applications)));
 }
 
 pub fn Sidebar<'a>(cx: Scope) -> Element {
-    let sidebar_data = cx.use_hook(|_| match cx.consume_context::<Rc<UseSidebar>>() {
+    let sidebar_data = match use_context::<UseSidebar>(&cx) {
         Some(data) => data,
         None => panic!("Couldn't find UseSidebar"),
-    }); // TODO: THIS DOESNT CHANGE :C
+    };
 
     cx.render(rsx! {
         ul {
             class: "flex flex-col shadow h-screen min-h-screen w-16 items-center sticky left-0 top-0",
-            match *sidebar_data.0.borrow() {
+            match *sidebar_data.read().0.borrow() {
                 SidebarData::Applications => rsx! { Applications {} },
                 SidebarData::Custom(elements) => rsx! {
                     elements.iter().map(|elem| match elem {
