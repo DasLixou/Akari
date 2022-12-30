@@ -14,11 +14,12 @@ pub fn BooksScreen(cx: Scope) -> Element {
             match files.value() {
                 None => rsx! { "loading.." },
                 Some(books) => rsx! {
-                    books.books.iter().enumerate().map(|(i, book)| {
+                    books.books.iter().map(|(id, book)| {
                         rsx! {
                             BookPresentation {
-                                key: "{i}",
+                                key: "{id}",
                                 book: &book,
+                                id: id.to_owned(),
                             }
                         }
                     })
@@ -29,11 +30,12 @@ pub fn BooksScreen(cx: Scope) -> Element {
 }
 
 #[inline_props]
-pub fn BookPresentation<'a>(cx: Scope, book: &'a Book) -> Element {
+pub fn BookPresentation<'a>(cx: Scope, book: &'a Book, id: String) -> Element {
     cx.render(rsx! {
         li {
             class: "flex px-10 py-3 h-56 w-full border-b border-gray-100",
-            button {
+            Link {
+                to: "/books/{id}",
                 class: "flex w-full h-full",
                 img {
                     class: "w-36 h-auto max-h-full object-contain",

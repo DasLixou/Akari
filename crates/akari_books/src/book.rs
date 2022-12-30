@@ -2,10 +2,13 @@ use std::{fs::File, io::BufReader};
 
 use epub::doc::EpubDoc;
 
+pub type BookID = String;
+
 pub struct Book {
     pub title: String,
     pub creator: String,
     pub cover: String,
+    pub id: BookID,
 }
 
 impl Book {
@@ -23,6 +26,7 @@ impl Book {
             title: doc.mdata("title").unwrap_or_default(),
             creator: doc.mdata("creator").unwrap_or_default(),
             cover,
+            id: doc.mdata("identifier").unwrap_or_default(),
         }
     }
 }

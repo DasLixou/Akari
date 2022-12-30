@@ -1,11 +1,13 @@
-use book::Book;
+use std::collections::HashMap;
+
+use book::{Book, BookID};
 use epub::doc::EpubDoc;
 use log::error;
 
 pub mod book;
 
 pub struct BookFiles {
-    pub books: Vec<Book>,
+    pub books: HashMap<BookID, Book>,
 }
 
 impl BookFiles {
@@ -14,12 +16,14 @@ impl BookFiles {
             Ok(e) => e,
             Err(err) => {
                 error!("Couldn't read in `~/Books`: {}", err);
-                return BookFiles { books: vec![] };
+                return BookFiles {
+                    books: HashMap::new(),
+                };
             }
         };
         let collected = paths.collect::<Vec<_>>();
 
-        let mut books = Vec::with_capacity(collected.len());
+        let mut books = HashMap::with_capacity(collected.len());
 
         for path in collected {
             let path_buf = path.unwrap().path();
@@ -27,10 +31,13 @@ impl BookFiles {
                 Ok(doc) => doc,
                 Err(e) => {
                     error!("Couldn't read epub file `{:?}`: {e}", path_buf);
-                    return BookFiles { books: vec![] };
+                    return BookFiles {
+                        books: HashMap::new(),
+                    };
                 }
             };
-            books.push(Book::new(doc));
+            let book = Book::new(doc);
+            books.insert(book.id.clone(), book);
         }
         Self { books }
     }

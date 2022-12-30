@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+use applications::books::Books;
 use components::sidebar::init_sidebar_data;
 use dioxus::prelude::*;
 use log::info;
@@ -7,11 +8,13 @@ use log::info;
 use crate::{
     components::sidebar::Sidebar,
     screens::{
-        books::BooksScreen, calender::CalenderScreen, home::HomeScreen, scribe::ScribeScreen,
-        settings::SettingsScreen,
+        book::BookScreen, books::BooksScreen, calender::CalenderScreen, home::HomeScreen,
+        scribe::ScribeScreen, settings::SettingsScreen,
     },
 };
 
+mod application;
+mod applications;
 mod components;
 mod hooks;
 mod icons;
@@ -41,7 +44,11 @@ fn app(cx: Scope) -> Element {
 
                 Route { to: "/", HomeScreen {} }
                 Route { to: "/scribe", ScribeScreen {} }
-                Route { to: "/books", BooksScreen {} }
+                Route { to: "/books/:book", BookScreen {} }
+                Route { to: "/books",
+                    BooksScreen {},
+                    // Route { to: "/:book", BookScreen {} } // this currently doesnt work :c
+                }
                 Route { to: "/calender", CalenderScreen {} }
                 Route { to: "/settings", SettingsScreen {} }
                 Route { to: "", HomeScreen {} }
