@@ -6,6 +6,10 @@ public class SidebarImpl : ISidebarService
 {
     public void Initialize()
     {
-        Console.WriteLine("HALLO MAMI ICH BIN IM FEEEEEEERNNNNNNNNSEEEEEEEEEEEEEHHHHHHNNNNN!!");
+        Console.WriteLine("Load Sidebar applications... une moment, s'il vous plaît...");
+        foreach (var ele in Utils.Find<ISidebarElement>())
+        {
+            Console.WriteLine("Loading {0}...", ele.Title);
+        }
     }
 }
