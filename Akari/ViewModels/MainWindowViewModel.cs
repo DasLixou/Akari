@@ -1,12 +1,17 @@
 using Akari.Commands;
+using Akari.Models;
+using AuroraModularis.Core;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Akari.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
     private int selectedIndex;
+
+    public string First { get => Container.Current.Resolve<ISidebarService>().Elements.First().Title; }
 
     public int SelectedIndex
     {

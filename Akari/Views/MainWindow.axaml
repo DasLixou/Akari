@@ -16,7 +16,7 @@
   <Grid ColumnDefinitions="55,*">
     <Grid Grid.Column="0" VerticalAlignment="Stretch" Background="WhiteSmoke">
       <StackPanel VerticalAlignment="Top">
-        <Button Command="{Binding SwitchPage}" CommandParameter="0">Scribe</Button>
+        <Button Command="{Binding SwitchPage}" CommandParameter="0" Content="{Binding First}" />
         <Button Command="{Binding SwitchPage}" CommandParameter="1">Books</Button>
         <Button Command="{Binding SwitchPage}" CommandParameter="2">Calender</Button>
         <Button Command="{Binding SwitchPage}" CommandParameter="3">Cook</Button>
