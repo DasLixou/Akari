@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari", "Akari.csproj", "{017A1773-C7EF-4414-8F03-162928A7B1AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Scribe", "Akari.Scribe\Akari.Scribe.csproj", "{AFE23664-1DE6-4D63-8064-BD84C837F821}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari", "Akari\Akari.csproj", "{2E91923F-9CD3-426B-99EB-889D68982E35}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFE23664-1DE6-4D63-8064-BD84C837F821} = {AFE23664-1DE6-4D63-8064-BD84C837F821}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari.Sidebar", "Akari.Sidebar\Akari.Sidebar.csproj", "{87465002-FECB-4149-8432-255207693488}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5109D64B-54B8-4C11-B40F-1477080B1DA6} = {5109D64B-54B8-4C11-B40F-1477080B1DA6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari.Models", "..\Akari.Models\Akari.Models.csproj", "{5109D64B-54B8-4C11-B40F-1477080B1DA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +23,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{017A1773-C7EF-4414-8F03-162928A7B1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{017A1773-C7EF-4414-8F03-162928A7B1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{017A1773-C7EF-4414-8F03-162928A7B1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{017A1773-C7EF-4414-8F03-162928A7B1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE23664-1DE6-4D63-8064-BD84C837F821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE23664-1DE6-4D63-8064-BD84C837F821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE23664-1DE6-4D63-8064-BD84C837F821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE23664-1DE6-4D63-8064-BD84C837F821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E91923F-9CD3-426B-99EB-889D68982E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E91923F-9CD3-426B-99EB-889D68982E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E91923F-9CD3-426B-99EB-889D68982E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E91923F-9CD3-426B-99EB-889D68982E35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87465002-FECB-4149-8432-255207693488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87465002-FECB-4149-8432-255207693488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87465002-FECB-4149-8432-255207693488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87465002-FECB-4149-8432-255207693488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
