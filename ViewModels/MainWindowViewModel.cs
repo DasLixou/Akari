@@ -1,11 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ReactiveUI;
+using System.Collections.ObjectModel;
 
-namespace Akari.ViewModels
+namespace Akari.ViewModels;
+
+public class MainWindowViewModel : ViewModelBase
 {
-    public class MainWindowViewModel : ViewModelBase
+    private int selectedIndex;
+
+    public int SelectedIndex
     {
-        public string Greeting => "Welcome to Avalonia!";
+        get => selectedIndex;
+        set => this.RaiseAndSetIfChanged(ref selectedIndex, value);
+    }
+
+    public ObservableCollection<object> Pages { get; set; } = new();
+
+    public MainWindowViewModel()
+    {
+        Pages.Add("scribe");
+        Pages.Add("books");
+        Pages.Add("calender");
+        Pages.Add("cook");
+        Pages.Add("settings");
     }
 }

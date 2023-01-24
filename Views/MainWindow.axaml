@@ -3,15 +3,28 @@
         xmlns:vm="using:Akari.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="720" Height="950"
+        mc:Ignorable="d" d:DesignWidth="720" d:DesignHeight="950"
         x:Class="Akari.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="Akari">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+  <Grid ColumnDefinitions="55,*">
+    <Grid Grid.Column="0" VerticalAlignment="Stretch" Background="WhiteSmoke">
+      <StackPanel VerticalAlignment="Top">
+        <Button>Scribe</Button>
+        <Button>Books</Button>
+        <Button>Calender</Button>
+        <Button>Cook</Button>
+      </StackPanel>
+      <StackPanel VerticalAlignment="Bottom">
+        <Button>Schettings</Button>
+      </StackPanel>
+    </Grid>
+    <Carousel Grid.Column="1" SelectedIndex="{Binding SelectedIndex}" Items="{Binding Pages}" />
+  </Grid>
 </Window>
