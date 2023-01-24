@@ -16,13 +16,13 @@
   <Grid ColumnDefinitions="55,*">
     <Grid Grid.Column="0" VerticalAlignment="Stretch" Background="WhiteSmoke">
       <StackPanel VerticalAlignment="Top">
-        <Button>Scribe</Button>
-        <Button>Books</Button>
-        <Button>Calender</Button>
-        <Button>Cook</Button>
+        <Button Command="{Binding SwitchPage}" CommandParameter="0">Scribe</Button>
+        <Button Command="{Binding SwitchPage}" CommandParameter="1">Books</Button>
+        <Button Command="{Binding SwitchPage}" CommandParameter="2">Calender</Button>
+        <Button Command="{Binding SwitchPage}" CommandParameter="3">Cook</Button>
       </StackPanel>
       <StackPanel VerticalAlignment="Bottom">
-        <Button>Schettings</Button>
+        <Button Command="{Binding SwitchPage}" CommandParameter="4">Schettings</Button>
       </StackPanel>
     </Grid>
     <Carousel Grid.Column="1" SelectedIndex="{Binding SelectedIndex}" Items="{Binding Pages}" />

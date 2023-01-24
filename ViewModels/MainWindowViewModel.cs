@@ -1,3 +1,4 @@
+using Akari.Commands;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 
@@ -15,8 +16,11 @@ public class MainWindowViewModel : ViewModelBase
 
     public ObservableCollection<object> Pages { get; set; } = new();
 
+    public SwitchPageCommand SwitchPage { get; set; }
+
     public MainWindowViewModel()
     {
+        SwitchPage = new(this);
         Pages.Add("scribe");
         Pages.Add("books");
         Pages.Add("calender");
