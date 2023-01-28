@@ -1,4 +1,5 @@
 ﻿using Akari.Models;
+using AuroraModularis.Core;
 
 namespace Akari.Sidebar;
 
@@ -10,7 +11,7 @@ public class SidebarImpl : ISidebarService
     {
         var elements = new List<ISidebarElement>();
         Console.WriteLine("Load Sidebar applications... une moment, s'il vous plaît...");
-        foreach (var ele in Utils.Find<ISidebarElement>())
+        foreach (var ele in Container.Current.Resolve<ITypeFinder>().FindAndResolveTypes<ISidebarElement>())
         {
             Console.WriteLine("Loading {0}...", ele.Title);
             elements.Add(ele);
