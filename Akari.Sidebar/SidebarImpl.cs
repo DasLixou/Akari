@@ -11,7 +11,7 @@ public class SidebarImpl : ISidebarService
     {
         var elements = new List<ISidebarElement>();
         Console.WriteLine("Load Sidebar applications... une moment, s'il vous plaît...");
-        foreach (var ele in Container.Current.Resolve<ITypeFinder>().FindAndResolveTypes<ISidebarElement>())
+        foreach (var ele in Container.Current.Resolve<ITypeFinder>().FindAndResolveTypes<ISidebarElement>().OrderBy(e => e.Priority))
         {
             Console.WriteLine("Loading {0}...", ele.Title);
             elements.Add(ele);

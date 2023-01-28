@@ -10,12 +10,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari", "Akari\Akari.csproj
 		{AFE23664-1DE6-4D63-8064-BD84C837F821} = {AFE23664-1DE6-4D63-8064-BD84C837F821}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari.Sidebar", "Akari.Sidebar\Akari.Sidebar.csproj", "{87465002-FECB-4149-8432-255207693488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Sidebar", "Akari.Sidebar\Akari.Sidebar.csproj", "{87465002-FECB-4149-8432-255207693488}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5109D64B-54B8-4C11-B40F-1477080B1DA6} = {5109D64B-54B8-4C11-B40F-1477080B1DA6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari.Models", "..\Akari.Models\Akari.Models.csproj", "{5109D64B-54B8-4C11-B40F-1477080B1DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Models", "..\Akari.Models\Akari.Models.csproj", "{5109D64B-54B8-4C11-B40F-1477080B1DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari.Books", "Akari.Books\Akari.Books.csproj", "{CDE6E841-5271-48A3-A96A-54C65EFC7901}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

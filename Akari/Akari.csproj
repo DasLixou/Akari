@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Akari.Models\Akari.Models.csproj" />
     <ProjectReference Include="..\Akari.Scribe\Akari.Scribe.csproj" />
+    <ProjectReference Include="..\Akari.Books\Akari.Books.csproj" />
     <ProjectReference Include="..\Akari.Sidebar\Akari.Sidebar.csproj" />
   </ItemGroup>
 </Project>
