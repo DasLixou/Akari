@@ -8,5 +8,7 @@ public class Scribe : ISidebarElement
 {
     public string Title => "Scribe";
 
+    public string OutlinedIcon => "Assets/Brush.svg";
+
     public UserControl Content => new MainPage();
 }
