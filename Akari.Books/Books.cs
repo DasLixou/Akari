@@ -12,5 +12,7 @@ public class Books : ISidebarElement
 
     public string OutlinedIcon => "Assets/Book.svg";
 
+    public bool IsPrimary => true;
+
     public UserControl Content => new MainPage();
 }

@@ -1,6 +1,6 @@
 ﻿using AuroraModularis.Core;
 
-namespace Akari.Books;
+namespace Akari.Settings;
 
 [Priority]
 public class Module : AuroraModularis.Module

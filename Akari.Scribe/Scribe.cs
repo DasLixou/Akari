@@ -12,5 +12,7 @@ public class Scribe : ISidebarElement
 
     public string OutlinedIcon => "Assets/Brush.svg";
 
+    public bool IsPrimary => true;
+
     public UserControl Content => new MainPage();
 }

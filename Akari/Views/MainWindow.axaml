@@ -15,11 +15,27 @@
   </Design.DataContext>
 
   <Grid ColumnDefinitions="55,*">
-    <Grid Grid.Column="0" VerticalAlignment="Stretch" Background="WhiteSmoke">
-      <ListBox SelectedIndex="{Binding #MainContent.SelectedIndex, Mode=TwoWay}" Items="{Binding Pages}">
+    <Grid Grid.Column="0" VerticalAlignment="Stretch" Background="White">
+      <ListBox VerticalAlignment="Top" SelectedIndex="{Binding PageIndex, Mode=TwoWay}" Items="{Binding PrimaryPages}">
         <ListBox.Styles>
           <Style Selector="ListBoxItem">
             <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="White" />
+          </Style>
+        </ListBox.Styles>
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Grid Width="55" Height="55">
+              <svg:Svg Path="{Binding OutlinedIcon}" Margin="10" />
+            </Grid>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <ListBox VerticalAlignment="Bottom" SelectedIndex="{Binding SecPageIndex, Mode=TwoWay}" Items="{Binding SecondaryPages}">
+        <ListBox.Styles>
+          <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="White" />
           </Style>
         </ListBox.Styles>
         <ListBox.ItemTemplate>
@@ -31,7 +47,7 @@
         </ListBox.ItemTemplate>
       </ListBox>
     </Grid>
-    <Carousel Name="MainContent" Grid.Column="1" Items="{Binding Pages}">
+    <Carousel SelectedIndex="{Binding PageIndex, Mode=TwoWay}" Grid.Column="1" Items="{Binding Pages}">
       <Carousel.ItemTemplate>
         <DataTemplate>
           <ContentPresenter Content="{Binding Content}" />

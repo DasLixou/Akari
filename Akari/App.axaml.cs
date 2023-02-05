@@ -25,7 +25,7 @@ namespace Akari
 
             await bootstrapper.BuildAndStartAsync();
 
-            Container.Current.Resolve<ISidebarService>().Initialize();
+            ServiceContainer.Current.Resolve<ISidebarService>().Initialize();
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
