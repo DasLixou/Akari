@@ -11,15 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari", "Akari\Akari.csproj
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Sidebar", "Akari.Sidebar\Akari.Sidebar.csproj", "{87465002-FECB-4149-8432-255207693488}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5109D64B-54B8-4C11-B40F-1477080B1DA6} = {5109D64B-54B8-4C11-B40F-1477080B1DA6}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Models", "..\Akari.Models\Akari.Models.csproj", "{5109D64B-54B8-4C11-B40F-1477080B1DA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Books", "Akari.Books\Akari.Books.csproj", "{CDE6E841-5271-48A3-A96A-54C65EFC7901}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akari.Settings", "Akari.Settings\Akari.Settings.csproj", "{FDD266B8-073B-40FB-A288-644749420437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Settings", "Akari.Settings\Akari.Settings.csproj", "{FDD266B8-073B-40FB-A288-644749420437}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akari.Models", "Akari.Models\Akari.Models.csproj", "{C20F2661-DE92-4D0A-8BA7-3F487B702F43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +36,6 @@ Global
 		{87465002-FECB-4149-8432-255207693488}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87465002-FECB-4149-8432-255207693488}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87465002-FECB-4149-8432-255207693488}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5109D64B-54B8-4C11-B40F-1477080B1DA6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDE6E841-5271-48A3-A96A-54C65EFC7901}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +44,10 @@ Global
 		{FDD266B8-073B-40FB-A288-644749420437}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDD266B8-073B-40FB-A288-644749420437}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDD266B8-073B-40FB-A288-644749420437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C20F2661-DE92-4D0A-8BA7-3F487B702F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C20F2661-DE92-4D0A-8BA7-3F487B702F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C20F2661-DE92-4D0A-8BA7-3F487B702F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C20F2661-DE92-4D0A-8BA7-3F487B702F43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

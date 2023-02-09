@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AuroraModularis" Version="1.0.34" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Akari.Models\Akari.Models.csproj" />
+    <PackageReference Include="Avalonia" Version="0.10.18" />
   </ItemGroup>
 
 </Project>

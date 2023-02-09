@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Akari.Models\Akari.Models.csproj" />
+    <ProjectReference Include="..\Akari.Models\Akari.Models.csproj" />
   </ItemGroup>
 
 </Project>
