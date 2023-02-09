@@ -1,4 +1,5 @@
 using Akari.Models;
+
 using Akari.ViewModels;
 using Akari.Views;
 using AuroraModularis;
@@ -19,9 +20,7 @@ namespace Akari
         public override async void OnFrameworkInitializationCompleted()
         {
             var bootstrapper = BootstrapperBuilder.StartConfigure()
-                .WithAppName("Akari")
-                .WithModulesBasePath(".")
-                .WithSettingsBasePath(".");
+                .WithAppName("Akari");
 
             await bootstrapper.BuildAndStartAsync();
 

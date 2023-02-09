@@ -12,7 +12,7 @@ public class Settings : ISidebarElement
 
     public string OutlinedIcon => "Assets/Cog8.svg";
 
-    public bool IsPrimary => false;
+    public bool IsPrimary => true; // TODO: Change this back when it works
 
     public UserControl Content => new MainPage();
 }

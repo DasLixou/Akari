@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace Akari.ViewModels;
+namespace Akari.Settings.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {

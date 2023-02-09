@@ -1,3 +1,4 @@
+using Akari.Models;
 using Akari.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;

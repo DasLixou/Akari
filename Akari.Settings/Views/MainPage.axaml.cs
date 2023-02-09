@@ -1,3 +1,4 @@
+using Akari.Settings.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -7,6 +8,7 @@ namespace Akari.Settings.Views
     {
         public MainPage()
         {
+            DataContext = new MainPageViewModel();
             InitializeComponent();
         }
 
