@@ -18,37 +18,35 @@ pub struct Sidebar {
 
 impl Model for Sidebar {}
 
-impl Sidebar {
-    pub fn new<'a>(
-        cx: &'a mut Context,
-    ) -> Handle<List<sidebar_derived_lenses::sidebar_elements, SidebarElement>> {
-        cx.add_stylesheet("src/sidebar/style.css").unwrap();
+pub fn create_sidebar<'a>(
+    cx: &'a mut Context,
+) -> Handle<List<sidebar_derived_lenses::sidebar_elements, SidebarElement>> {
+    cx.add_stylesheet("src/sidebar/style.css").unwrap();
 
-        Sidebar {
-            sidebar_elements: vec![
-                SidebarElement {
-                    text: "Akari".into(),
-                },
-                SidebarElement {
-                    text: "Scribe".into(),
-                },
-                SidebarElement {
-                    text: "Books".into(),
-                },
-                SidebarElement {
-                    text: "Calendar".into(),
-                },
-                SidebarElement {
-                    text: "Settings".into(),
-                },
-            ],
-        }
-        .build(cx);
-
-        List::new(cx, Sidebar::sidebar_elements, |cx, _index, item| {
-            SidebarButton::new(cx, item.then(SidebarElement::text), |_| {});
-        })
-        .width(SIDEBAR_ELEMENT_SIZE)
-        .class("sidebar")
+    Sidebar {
+        sidebar_elements: vec![
+            SidebarElement {
+                text: "Akari".into(),
+            },
+            SidebarElement {
+                text: "Scribe".into(),
+            },
+            SidebarElement {
+                text: "Books".into(),
+            },
+            SidebarElement {
+                text: "Calendar".into(),
+            },
+            SidebarElement {
+                text: "Settings".into(),
+            },
+        ],
     }
+    .build(cx);
+
+    List::new(cx, Sidebar::sidebar_elements, |cx, _index, item| {
+        SidebarButton::new(cx, item.then(SidebarElement::text), |_| {});
+    })
+    .width(SIDEBAR_ELEMENT_SIZE)
+    .class("sidebar")
 }
