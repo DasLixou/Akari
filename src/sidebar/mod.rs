@@ -2,9 +2,14 @@ pub mod element;
 
 use vizia::prelude::*;
 
-use self::element::SidebarElement;
+use self::element::SidebarButton;
 
 pub const SIDEBAR_ELEMENT_SIZE: Units = Pixels(60.);
+
+#[derive(Lens, Clone)]
+pub struct SidebarElement {
+    pub text: String,
+}
 
 #[derive(Lens)]
 pub struct Sidebar {
@@ -41,7 +46,7 @@ impl Sidebar {
         .build(cx);
 
         List::new(cx, Sidebar::sidebar_elements, |cx, _index, item| {
-            SidebarElement::new(cx, item.then(SidebarElement::text));
+            SidebarButton::new(cx, item.then(SidebarElement::text), |_| {});
         })
         .width(SIDEBAR_ELEMENT_SIZE)
         .class("sidebar")

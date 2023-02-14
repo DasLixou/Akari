@@ -7,13 +7,7 @@
     min-width: 0px;
 }
 
-.sidebar_element {
-    border-width: 0px;
-    border-radius: 0px;
+sidebar_button {
     background-color: black;
     overflow: hidden;
-}
-
-.sidebar_element:hover {
-    background-color: black;
 }
