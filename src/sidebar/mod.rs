@@ -14,13 +14,12 @@ pub struct SidebarElement {
 #[derive(Lens)]
 pub struct Sidebar {
     pub sidebar_elements: Vec<SidebarElement>,
+    pub selected: usize,
 }
 
 impl Model for Sidebar {}
 
-pub fn create_sidebar<'a>(
-    cx: &'a mut Context,
-) -> Handle<List<sidebar_derived_lenses::sidebar_elements, SidebarElement>> {
+pub fn create_sidebar<'a>(cx: &'a mut Context) -> Handle<impl View> {
     cx.add_stylesheet("src/sidebar/style.css").unwrap();
 
     Sidebar {
@@ -41,11 +40,17 @@ pub fn create_sidebar<'a>(
                 text: "Settings".into(),
             },
         ],
+        selected: 0,
     }
     .build(cx);
 
-    List::new(cx, Sidebar::sidebar_elements, |cx, _index, item| {
-        SidebarButton::new(cx, item.then(SidebarElement::text), |_| {});
+    List::new(cx, Sidebar::sidebar_elements, |cx, index, item| {
+        SidebarButton::new(
+            cx,
+            item.then(SidebarElement::text),
+            |_| {},
+            Sidebar::selected.map(move |i| index == *i),
+        );
     })
     .width(SIDEBAR_ELEMENT_SIZE)
     .class("sidebar")

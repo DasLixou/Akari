@@ -6,7 +6,12 @@ pub struct SidebarButton {
 }
 
 impl SidebarButton {
-    pub fn new<'a, T, A>(cx: &'a mut Context, text: impl Res<T>, action: A) -> Handle<Self>
+    pub fn new<'a, T, A>(
+        cx: &'a mut Context,
+        text: impl Res<T>,
+        action: A,
+        active: impl Res<bool>,
+    ) -> Handle<Self>
     where
         T: ToString,
         A: 'static + Fn(&mut EventContext),
@@ -16,7 +21,6 @@ impl SidebarButton {
         }
         .build(cx, move |cx| {
             Label::new(cx, text)
-                .color(Color::white())
                 .overflow(Overflow::Hidden)
                 .hoverable(false);
         })
@@ -24,6 +28,7 @@ impl SidebarButton {
         .navigable(true)
         .size(super::SIDEBAR_ELEMENT_SIZE)
         .max_size(super::SIDEBAR_ELEMENT_SIZE)
+        .checked(active)
     }
 }
 

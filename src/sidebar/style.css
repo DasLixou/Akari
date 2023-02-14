@@ -8,6 +8,12 @@
 }
 
 sidebar_button {
-    background-color: black;
+    background-color: white;
     overflow: hidden;
+    color: black;
+}
+
+sidebar_button:checked {
+    background-color: black;
+    color: white;
 }
