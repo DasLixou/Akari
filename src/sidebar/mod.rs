@@ -17,6 +17,8 @@ impl Sidebar {
     pub fn new<'a>(
         cx: &'a mut Context,
     ) -> Handle<List<sidebar_derived_lenses::sidebar_elements, SidebarElement>> {
+        cx.add_stylesheet("src/sidebar/style.css").unwrap();
+
         Sidebar {
             sidebar_elements: vec![
                 SidebarElement {
@@ -42,10 +44,6 @@ impl Sidebar {
             SidebarElement::new(cx, item.then(SidebarElement::text));
         })
         .width(SIDEBAR_ELEMENT_SIZE)
-        .background_color(Color::white())
-        .border_width(Pixels(1.))
-        .border_color(Color::black())
-        .overflow(Overflow::Hidden)
         .class("sidebar")
     }
 }

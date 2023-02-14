@@ -1,0 +1,18 @@
+.sidebar {
+    background-color: white;
+    border-color: black;
+    overflow: hidden;
+    height: 100%;
+    border-width: 1px;
+}
+
+.sidebar_element {
+    border-width: 0px;
+    border-radius: 0px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.sidebar_element:hover {
+    background-color: black;
+}
