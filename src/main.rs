@@ -1,5 +1,7 @@
+pub mod scribe;
 pub mod sidebar_carousel;
 
+use scribe::scribe;
 use sidebar_carousel::{carousel::Carousel, sidebar::Sidebar, SidebarCarousel, SidebarItem};
 use vizia::prelude::*;
 
@@ -17,9 +19,7 @@ fn main() {
                 },
                 SidebarItem {
                     text: "Scribe".into(),
-                    content: |cx| {
-                        Label::new(cx, "Select Notebook");
-                    },
+                    content: scribe,
                 },
                 SidebarItem {
                     text: "Books".into(),
