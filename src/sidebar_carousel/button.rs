@@ -1,5 +1,7 @@
 use vizia::prelude::*;
 
+use super::sidebar::SIDEBAR_ELEMENT_SIZE;
+
 #[derive(Lens)]
 pub struct SidebarButton {
     action: Option<Box<dyn Fn(&mut EventContext)>>,
@@ -26,8 +28,8 @@ impl SidebarButton {
         })
         .cursor(CursorIcon::Hand)
         .navigable(true)
-        .size(super::SIDEBAR_ELEMENT_SIZE)
-        .max_size(super::SIDEBAR_ELEMENT_SIZE)
+        .size(SIDEBAR_ELEMENT_SIZE)
+        .max_size(SIDEBAR_ELEMENT_SIZE)
         .checked(active)
     }
 }
