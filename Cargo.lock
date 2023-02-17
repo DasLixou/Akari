@@ -1649,7 +1649,7 @@ checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
 [[package]]
 name = "vizia"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "vizia_core",
  "vizia_winit",
@@ -1658,7 +1658,7 @@ dependencies = [
 [[package]]
 name = "vizia_core"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "bitflags",
  "copypasta",
@@ -1690,7 +1690,7 @@ dependencies = [
 [[package]]
 name = "vizia_derive"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1700,12 +1700,12 @@ dependencies = [
 [[package]]
 name = "vizia_id"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 
 [[package]]
 name = "vizia_input"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "bitflags",
  "keyboard-types",
@@ -1715,7 +1715,7 @@ dependencies = [
 [[package]]
 name = "vizia_storage"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "morphorm",
  "vizia_id",
@@ -1724,7 +1724,7 @@ dependencies = [
 [[package]]
 name = "vizia_window"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "morphorm",
  "vizia_input",
@@ -1733,7 +1733,7 @@ dependencies = [
 [[package]]
 name = "vizia_winit"
 version = "0.1.0"
-source = "git+https://github.com/DasLixou/vizia?branch=patches#c7ab746cb5aaf44bed1a825e696642ba80e72a57"
+source = "git+https://github.com/vizia/vizia#4e5ad54330a54f6741470e48c39d78b4af047357"
 dependencies = [
  "console_error_panic_hook",
  "copypasta",
