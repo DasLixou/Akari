@@ -46,6 +46,7 @@ fn main() {
             Carousel::new(cx);
         });
     })
+    .ignore_default_theme()
     .title(&format!("Akari | {VERSION}"))
     .inner_size((1404 / 2, 1872 / 2))
     .run();
