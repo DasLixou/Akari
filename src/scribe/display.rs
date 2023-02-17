@@ -1,7 +1,7 @@
 use vizia::{
     prelude::*,
     state::{Lens, LensExt},
-    vg::{Color, Paint, Path},
+    vg::{Color, LineCap, Paint, Path},
     view::{Canvas, View},
 };
 
@@ -51,7 +51,13 @@ where
 
     fn draw(&self, cx: &mut DrawContext, canvas: &mut Canvas) {
         for path in &mut self.paths.get(cx) {
-            canvas.stroke_path(path, &Paint::color(Color::black()).with_line_width(1.2))
+            canvas.stroke_path(
+                path,
+                &Paint::color(Color::rgba(65, 212, 215, 100))
+                    .with_line_width(12.)
+                    .with_line_cap(LineCap::Round)
+                    .with_line_join(vizia::vg::LineJoin::Bevel),
+            )
         }
     }
 }
