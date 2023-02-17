@@ -26,17 +26,22 @@ where
 {
     fn event(&mut self, cx: &mut EventContext, event: &mut Event) {
         event.map(|window_event, meta| match window_event {
-            WindowEvent::PressDown { .. } => {
+            WindowEvent::MouseDown { .. } => {
                 cx.emit(PageEvent::BeginPath((cx.mouse.cursorx, cx.mouse.cursory)));
                 cx.needs_redraw();
                 cx.capture();
-                cx.focus();
             }
 
             WindowEvent::MouseMove(x, y) => {
                 if meta.target == cx.current() && cx.mouse.left.state == MouseButtonState::Pressed {
                     cx.emit(PageEvent::ExtendPath((*x, *y)));
                     cx.needs_redraw();
+                }
+            }
+
+            WindowEvent::MouseUp(_) => {
+                if meta.target == cx.current() {
+                    cx.release();
                 }
             }
 
