@@ -11,23 +11,18 @@ pub enum SidebarCarouselEvent {
 #[derive(Lens, Clone)]
 pub struct SidebarItem {
     pub text: String,
-    pub content: for<'a> fn(&'a mut Context),
+    pub content: fn(&mut Context),
 }
 
 #[derive(Lens)]
 pub struct SidebarCarousel {
     pub items: Vec<SidebarItem>,
     pub selected: usize,
-    pub content: for<'a> fn(&'a mut Context),
 }
 
 impl SidebarCarousel {
     pub fn new(items: Vec<SidebarItem>) -> Self {
-        Self {
-            content: items[0].content,
-            items,
-            selected: 0,
-        }
+        Self { items, selected: 0 }
     }
 }
 
@@ -36,7 +31,6 @@ impl Model for SidebarCarousel {
         event.map(|sidebar_event, _| match sidebar_event {
             SidebarCarouselEvent::SelectItem(index) => {
                 self.selected = *index;
-                self.content = self.items[*index].content;
             }
         })
     }
