@@ -1,3 +1,4 @@
+use glam::Vec2;
 use vizia::{
     prelude::*,
     state::{Lens, LensExt},
@@ -8,6 +9,7 @@ use vizia::{
 use super::PageEvent;
 
 pub struct PageDisplay<L: Lens> {
+    delta_mouse: Vec2,
     paths: L,
 }
 
@@ -16,7 +18,11 @@ where
     L: Lens<Target = Vec<Path>>,
 {
     pub fn new(cx: &mut Context, paths: L) -> Handle<'_, Self> {
-        Self { paths }.build(cx, |_cx| {})
+        Self {
+            paths,
+            delta_mouse: Vec2::ZERO,
+        }
+        .build(cx, |_cx| {})
     }
 }
 
@@ -28,14 +34,19 @@ where
         event.map(|window_event, meta| match window_event {
             WindowEvent::MouseDown { .. } => {
                 cx.emit(PageEvent::BeginPath((cx.mouse.cursorx, cx.mouse.cursory)));
+                self.delta_mouse = Vec2::new(cx.mouse.cursorx, cx.mouse.cursory);
                 cx.needs_redraw();
                 cx.capture();
             }
 
             WindowEvent::MouseMove(x, y) => {
                 if meta.target == cx.current() && cx.mouse.left.state == MouseButtonState::Pressed {
-                    cx.emit(PageEvent::ExtendPath((*x, *y)));
-                    cx.needs_redraw();
+                    let mouse = Vec2::new(cx.mouse.cursorx, cx.mouse.cursory);
+                    if mouse.distance(self.delta_mouse) > 12. {
+                        self.delta_mouse = mouse;
+                        cx.emit(PageEvent::ExtendPath((*x, *y)));
+                        cx.needs_redraw();
+                    }
                 }
             }
 
@@ -54,6 +65,7 @@ where
             canvas.stroke_path(
                 path,
                 &Paint::color(Color::rgba(65, 212, 215, 100))
+                    .with_stencil_strokes(false)
                     .with_line_width(12.)
                     .with_line_cap(LineCap::Round)
                     .with_line_join(vizia::vg::LineJoin::Bevel),

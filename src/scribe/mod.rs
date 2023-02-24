@@ -18,13 +18,11 @@ impl Model for Page {
     fn event(&mut self, _cx: &mut EventContext, event: &mut Event) {
         event.map(|page_event, _| match page_event {
             PageEvent::BeginPath((x, y)) => {
-                println!("begin");
                 let mut path = Path::new();
                 path.move_to(*x, *y);
                 self.paths.push(path);
             }
             PageEvent::ExtendPath((x, y)) => {
-                println!("extend");
                 self.paths.last_mut().unwrap().line_to(*x, *y);
             }
         })
