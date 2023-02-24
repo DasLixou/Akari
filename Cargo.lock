@@ -231,6 +231,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "const-default"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b396d1f76d455557e1218ec8066ae14bba60b4b36ecd55577ba979f5db7ecaa"
+
+[[package]]
 name = "copypasta"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -295,7 +301,7 @@ dependencies = [
  "log",
  "ouroboros",
  "rangemap",
- "rustybuzz",
+ "rustybuzz 0.6.0",
  "swash",
  "sys-locale",
  "unicode-bidi",
@@ -395,11 +401,11 @@ dependencies = [
 
 [[package]]
 name = "femtovg"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bef5d849e0b9b18bdcfdc3c6559d5c95577f9606ebd1550d8c49c4e532a8227a"
+version = "0.6.0"
+source = "git+https://github.com/DasLixou/femtovg?branch=const-paint#4d4464bd0b58bf237ea937c7ae9593900142f9cc"
 dependencies = [
  "bitflags",
+ "const-default",
  "fnv",
  "generational-arena",
  "glow",
@@ -408,7 +414,7 @@ dependencies = [
  "lru",
  "ouroboros",
  "rgb",
- "rustybuzz",
+ "rustybuzz 0.7.0",
  "unicode-bidi",
  "unicode-segmentation",
  "wasm-bindgen",
@@ -551,9 +557,9 @@ checksum = "8e4afd9ad95555081e109fe1d21f2a30c691b5f0919c67dfa690a2e1eb6bd51c"
 
 [[package]]
 name = "glow"
-version = "0.12.0"
+version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8edf6019dff2d92ad27c1e3ff82ad50a0aea5b01370353cc928bfdc33e95925c"
+checksum = "4e007a07a24de5ecae94160f141029e9a347282cfe25d1d58d85d845cf3130f1"
 dependencies = [
  "js-sys",
  "slotmap",
@@ -812,9 +818,9 @@ checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
 
 [[package]]
 name = "memmap2"
-version = "0.5.9"
+version = "0.5.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2af2c65375e552a67fe3829ca63e8a7c27a378a62824594f43b2851d682b5ec2"
+checksum = "83faa42c0a078c393f6b29d5db232d8be22776a891f8f56e5284faee4a20b327"
 dependencies = [
  "libc",
 ]
@@ -969,18 +975,18 @@ dependencies = [
 
 [[package]]
 name = "num_enum"
-version = "0.5.10"
+version = "0.5.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e0072973714303aa6e3631c7e8e777970cf4bdd25dc4932e41031027b8bcc4e"
+checksum = "1f646caf906c20226733ed5b1374287eb97e3c2a5c227ce668c1f2ce20ae57c9"
 dependencies = [
  "num_enum_derive",
 ]
 
 [[package]]
 name = "num_enum_derive"
-version = "0.5.10"
+version = "0.5.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0629cbd6b897944899b1f10496d9c4a7ac5878d45fd61bc22e9e79bfbbc29597"
+checksum = "dcbff9bc912032c62bf65ef1d5aea88983b420f4f839db1e9b0c281a25c9c799"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -1334,9 +1340,9 @@ checksum = "e3a8614ee435691de62bcffcf4a66d91b3594bf1428a5722e79103249a095690"
 
 [[package]]
 name = "rgb"
-version = "0.8.35"
+version = "0.8.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7495acf66551cdb696b7711408144bcd3194fc78e32f3a09e809bfe7dd4a7ce3"
+checksum = "20ec2d3e3fc7a92ced357df9cebd5a10b6fb2aa1ee797bf7e9ce2f17dffc8f59"
 dependencies = [
  "bytemuck",
 ]
@@ -1358,6 +1364,22 @@ dependencies = [
  "libm",
  "smallvec",
  "ttf-parser 0.17.1",
+ "unicode-bidi-mirroring",
+ "unicode-ccc",
+ "unicode-general-category",
+ "unicode-script",
+]
+
+[[package]]
+name = "rustybuzz"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "162bdf42e261bee271b3957691018634488084ef577dddeb6420a9684cab2a6a"
+dependencies = [
+ "bitflags",
+ "bytemuck",
+ "smallvec",
+ "ttf-parser 0.18.1",
  "unicode-bidi-mirroring",
  "unicode-ccc",
  "unicode-general-category",
@@ -1457,9 +1479,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.107"
+version = "1.0.109"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f4064b5b16e03ae50984a5a8ed5d4f8803e6bc1fd170a3cda91a1be4b18e3f5"
+checksum = "72b64191b275b66ffe2469e8af2c1cfe3bafa67b529ead792a6d0160888b4237"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1656,7 +1678,7 @@ checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
 [[package]]
 name = "vizia"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "vizia_core",
  "vizia_winit",
@@ -1665,7 +1687,7 @@ dependencies = [
 [[package]]
 name = "vizia_core"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "bitflags",
  "copypasta",
@@ -1697,7 +1719,7 @@ dependencies = [
 [[package]]
 name = "vizia_derive"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1707,12 +1729,12 @@ dependencies = [
 [[package]]
 name = "vizia_id"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 
 [[package]]
 name = "vizia_input"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "bitflags",
  "keyboard-types",
@@ -1722,7 +1744,7 @@ dependencies = [
 [[package]]
 name = "vizia_storage"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "morphorm",
  "vizia_id",
@@ -1731,7 +1753,7 @@ dependencies = [
 [[package]]
 name = "vizia_window"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "morphorm",
  "vizia_input",
@@ -1740,7 +1762,7 @@ dependencies = [
 [[package]]
 name = "vizia_winit"
 version = "0.1.0"
-source = "git+https://github.com/vizia/vizia#d09317b8f73788a6a4e164a2d23ecc72d45fc8be"
+source = "git+https://github.com/DasLixou/vizia?branch=bump-femtovg#c827b109934eb498724fa78e75de677e658e14eb"
 dependencies = [
  "console_error_panic_hook",
  "copypasta",
