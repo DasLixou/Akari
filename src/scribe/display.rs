@@ -25,6 +25,7 @@ where
             current_brush: Brush::Pen,
         }
         .build(cx, |_cx| {})
+        .size(Stretch(1.0))
     }
 }
 

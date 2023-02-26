@@ -34,5 +34,5 @@ pub const MARKER: Paint = Paint::color(Color::rgbaf(
 ))
 .with_stencil_strokes(false)
 .with_line_width(12.)
-.with_line_cap(LineCap::Round)
+.with_line_cap(LineCap::Square)
 .with_line_join(vizia::vg::LineJoin::Bevel);
