@@ -8,6 +8,7 @@ pub mod display;
 pub enum PageEvent {
     BeginPath((Brush, f32, f32)),
     ExtendPath((f32, f32)),
+    ContinuePath((f32, f32)),
 }
 
 #[derive(Default, Lens)]
@@ -25,6 +26,9 @@ impl Model for Page {
             }
             PageEvent::ExtendPath((x, y)) => {
                 self.paths.last_mut().unwrap().0.line_to(*x, *y);
+            }
+            PageEvent::ContinuePath((x, y)) => {
+                self.paths.last_mut().unwrap().0.move_to(*x, *y);
             }
         })
     }

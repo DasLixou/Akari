@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 glam = "0.23.0"
-vizia = { git = "https://github.com/vizia/vizia" }
+vizia = { git = "https://github.com/DasLixou/vizia", branch = "event-relative-bounding-pos" }
 
 [patch.crates-io]
 femtovg = { git = "https://github.com/DasLixou/femtovg", branch = "const-paint" }
