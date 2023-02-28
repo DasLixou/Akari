@@ -1,5 +1,7 @@
 use vizia::prelude::*;
 
+use super::BuildClosure;
+
 #[derive(Lens, Clone)]
 pub struct SidebarItem {
     pub text: String,
@@ -8,19 +10,8 @@ pub struct SidebarItem {
 
 #[derive(Clone)]
 pub enum ItemBehaviour {
-    Page(fn(&mut Context)),
+    Page(BuildClosure),
     Nothing, // TODO: remove that
-}
-
-impl ItemBehaviour {
-    pub fn action(&self, cx: &mut Context) {
-        match self {
-            ItemBehaviour::Page(page) => {
-                (page)(cx);
-            }
-            ItemBehaviour::Nothing => {}
-        }
-    }
 }
 
 pub struct Items(pub Vec<SidebarItem>);

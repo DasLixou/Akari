@@ -4,7 +4,7 @@ use crate::{
     items,
     sidebar_carousel::{
         item::{ItemBehaviour, SidebarItem},
-        SidebarCarouselEvent,
+        BuildClosure, SidebarCarouselEvent,
     },
 };
 
@@ -37,6 +37,8 @@ impl Model for Page {
         })
     }
 }
+
+pub const SCRIBE: BuildClosure = BuildClosure(scribe);
 
 pub fn scribe(cx: &mut Context) {
     cx.emit(SidebarCarouselEvent::ShowSubItems(items![SidebarItem {

@@ -1,13 +1,11 @@
 pub mod item;
 pub mod sidebar;
-pub mod toggle_lens;
 
 use vizia::prelude::{Wrapper, *};
 
-use self::item::{Items, SidebarItem};
-use self::toggle_lens::Toggle;
+use crate::AppEvent;
 
-use self::sidebar_carousel_derived_lenses as d;
+use self::item::{ItemBehaviour, Items, SidebarItem};
 
 #[derive(Clone)]
 pub struct BuildClosure(pub fn(&mut Context));
@@ -26,7 +24,7 @@ impl Data for BuildClosure {
 }
 
 pub enum SidebarCarouselEvent {
-    SelectItem(usize),
+    PressItem(usize),
     ShowMainItems,
     ShowSubItems(Items),
 }
@@ -34,46 +32,38 @@ pub enum SidebarCarouselEvent {
 #[derive(Lens)]
 pub struct SidebarCarousel {
     pub main_items: Vec<SidebarItem>,
-    pub sub_items: Vec<SidebarItem>,
-    pub toggle: bool,
+    pub items: Vec<SidebarItem>,
     pub selected: usize,
 }
 
 impl SidebarCarousel {
-    #[allow(non_upper_case_globals)]
-    const items: Toggle<Wrapper<d::main_items>, Wrapper<d::sub_items>, Wrapper<d::toggle>> =
-        Toggle::new(
-            SidebarCarousel::main_items,
-            SidebarCarousel::sub_items,
-            SidebarCarousel::toggle,
-        );
-
     pub fn new(main_items: Items) -> Self {
         Self {
-            main_items: main_items.0,
-            sub_items: Vec::with_capacity(0),
-            toggle: false,
+            main_items: main_items.0.clone(),
+            items: main_items.0,
             selected: 0,
         }
     }
 }
 
 impl Model for SidebarCarousel {
-    fn event(&mut self, _cx: &mut EventContext, event: &mut Event) {
+    fn event(&mut self, cx: &mut EventContext, event: &mut Event) {
         if let Some(event) = event.take() {
             match event {
-                SidebarCarouselEvent::SelectItem(index) => {
+                SidebarCarouselEvent::PressItem(index) => {
                     self.selected = index;
-                    /*SidebarCarousel::items.get(cx)[selected]
-                    .behaviour
-                    .action(cx);*/
+                    match &self.items[index].behaviour {
+                        ItemBehaviour::Page(closure) => {
+                            cx.emit(AppEvent::ChangeContent(closure.clone()))
+                        }
+                        ItemBehaviour::Nothing => {}
+                    }
                 }
                 SidebarCarouselEvent::ShowMainItems => {
-                    self.toggle = false;
+                    self.items = self.main_items.clone();
                 }
                 SidebarCarouselEvent::ShowSubItems(items) => {
-                    self.sub_items = items.0;
-                    self.toggle = true;
+                    self.items = items.0;
                 }
             }
         }

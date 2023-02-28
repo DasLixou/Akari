@@ -1,7 +1,7 @@
 pub mod scribe;
 pub mod sidebar_carousel;
 
-use scribe::scribe;
+use scribe::SCRIBE;
 use sidebar_carousel::{
     item::{ItemBehaviour, SidebarItem},
     sidebar::Sidebar,
@@ -38,7 +38,7 @@ fn main() {
             SidebarCarousel::new(items![
                 SidebarItem {
                     text: "Scribe".into(),
-                    behaviour: ItemBehaviour::Page(scribe),
+                    behaviour: ItemBehaviour::Page(SCRIBE),
                 },
                 SidebarItem {
                     text: "Books".into(),

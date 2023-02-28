@@ -15,7 +15,7 @@ impl Sidebar {
                 List::new(cx, SidebarCarousel::items, |cx, index, item| {
                     Button::new(
                         cx,
-                        move |cx| cx.emit(SidebarCarouselEvent::SelectItem(index)),
+                        move |cx| cx.emit(SidebarCarouselEvent::PressItem(index)),
                         |cx| Label::new(cx, item.then(SidebarItem::text)),
                     )
                     .class("sidebar_button")
