@@ -2,7 +2,7 @@ pub mod scribe;
 pub mod sidebar_carousel;
 
 use scribe::scribe;
-use sidebar_carousel::{carousel::Carousel, sidebar::Sidebar, SidebarCarousel, SidebarItem};
+use sidebar_carousel::{carousel::Carousel, item::SidebarItem, sidebar::Sidebar, SidebarCarousel};
 use vizia::prelude::*;
 
 const VERSION: &str = "InDev";
@@ -10,7 +10,7 @@ const VERSION: &str = "InDev";
 fn main() {
     Application::new(|cx| {
         HStack::new(cx, |cx| {
-            SidebarCarousel::new(vec![
+            SidebarCarousel::new(items![
                 SidebarItem {
                     text: "Scribe".into(),
                     content: scribe,

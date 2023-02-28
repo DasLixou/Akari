@@ -12,16 +12,7 @@ impl Sidebar {
             .build(cx, |cx| {
                 cx.add_stylesheet("src/sidebar_carousel/style.css").unwrap();
 
-                Button::new(
-                    cx,
-                    move |cx| cx.emit(SidebarCarouselEvent::SelectItem(0)),
-                    |cx| Label::new(cx, "Akari"),
-                )
-                .class("sidebar_button")
-                .checked(SidebarCarousel::selected.map(move |i| *i == 0));
-
-                List::new(cx, SidebarCarousel::items, |cx, mut index, item| {
-                    index = index + 1; // Akari = 0
+                List::new(cx, SidebarCarousel::items, |cx, index, item| {
                     Button::new(
                         cx,
                         move |cx| cx.emit(SidebarCarouselEvent::SelectItem(index)),
