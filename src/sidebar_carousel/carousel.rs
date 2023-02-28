@@ -1,10 +1,10 @@
 use vizia::{
-    prelude::{Context, Handle},
+    prelude::{Context, EmitContext, Handle},
     state::{Binding, LensExt},
     view::View,
 };
 
-use super::SidebarCarousel;
+use super::{SidebarCarousel, SidebarCarouselEvent};
 
 pub struct Carousel;
 
@@ -13,7 +13,11 @@ impl Carousel {
         Carousel.build(cx, |cx| {
             Binding::new(cx, SidebarCarousel::selected, |cx, lens| {
                 let selected = lens.get(cx);
-                (SidebarCarousel::items.get(cx)[selected].content)(cx);
+                if selected == 0 {
+                    cx.emit(SidebarCarouselEvent::ShowMainItems)
+                } else {
+                    (SidebarCarousel::items.get(cx)[selected - 1].content)(cx);
+                }
             })
         })
     }

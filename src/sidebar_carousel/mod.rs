@@ -10,6 +10,8 @@ use self::sidebar_carousel_derived_lenses as d;
 
 pub enum SidebarCarouselEvent {
     SelectItem(usize),
+    ShowMainItems,
+    ShowSubItems(Vec<SidebarItem>),
 }
 
 #[derive(Lens, Clone)]
@@ -38,7 +40,7 @@ impl SidebarCarousel {
     pub fn new(main_items: Vec<SidebarItem>) -> Self {
         Self {
             main_items,
-            sub_items: vec![],
+            sub_items: Vec::with_capacity(0),
             toggle: false,
             selected: 0,
         }
@@ -47,10 +49,19 @@ impl SidebarCarousel {
 
 impl Model for SidebarCarousel {
     fn event(&mut self, _cx: &mut EventContext, event: &mut Event) {
-        event.map(|sidebar_event, _| match sidebar_event {
-            SidebarCarouselEvent::SelectItem(index) => {
-                self.selected = *index;
+        if let Some(event) = event.take() {
+            match event {
+                SidebarCarouselEvent::SelectItem(index) => {
+                    self.selected = index;
+                }
+                SidebarCarouselEvent::ShowMainItems => {
+                    self.toggle = false;
+                }
+                SidebarCarouselEvent::ShowSubItems(items) => {
+                    self.sub_items = items;
+                    self.toggle = true;
+                }
             }
-        })
+        }
     }
 }

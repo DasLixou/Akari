@@ -12,12 +12,6 @@ fn main() {
         HStack::new(cx, |cx| {
             SidebarCarousel::new(vec![
                 SidebarItem {
-                    text: "Akari".into(),
-                    content: |cx| {
-                        Label::new(cx, "Homepage");
-                    },
-                },
-                SidebarItem {
                     text: "Scribe".into(),
                     content: scribe,
                 },
