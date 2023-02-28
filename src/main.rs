@@ -2,10 +2,35 @@ pub mod scribe;
 pub mod sidebar_carousel;
 
 use scribe::scribe;
-use sidebar_carousel::{carousel::Carousel, item::SidebarItem, sidebar::Sidebar, SidebarCarousel};
+use sidebar_carousel::{
+    item::{ItemBehaviour, SidebarItem},
+    sidebar::Sidebar,
+    BuildClosure, SidebarCarousel,
+};
 use vizia::prelude::*;
 
 const VERSION: &str = "InDev";
+
+pub enum AppEvent {
+    ChangeContent(BuildClosure),
+}
+
+#[derive(Lens)]
+pub struct AppData {
+    main_content: BuildClosure,
+}
+
+impl Model for AppData {
+    fn event(&mut self, _cx: &mut EventContext, event: &mut Event) {
+        if let Some(event) = event.take() {
+            match event {
+                AppEvent::ChangeContent(closure) => {
+                    self.main_content = closure;
+                }
+            }
+        }
+    }
+}
 
 fn main() {
     Application::new(|cx| {
@@ -13,31 +38,33 @@ fn main() {
             SidebarCarousel::new(items![
                 SidebarItem {
                     text: "Scribe".into(),
-                    content: scribe,
+                    behaviour: ItemBehaviour::Page(scribe),
                 },
                 SidebarItem {
                     text: "Books".into(),
-                    content: |cx| {
-                        Label::new(cx, "All your books");
-                    },
+                    behaviour: ItemBehaviour::Nothing,
                 },
                 SidebarItem {
                     text: "Calendar".into(),
-                    content: |cx| {
-                        Label::new(cx, "Calendar");
-                    },
+                    behaviour: ItemBehaviour::Nothing,
                 },
                 SidebarItem {
                     text: "Settings".into(),
-                    content: |cx| {
-                        Label::new(cx, "Settings");
-                    },
+                    behaviour: ItemBehaviour::Nothing,
                 },
             ])
             .build(cx);
 
+            AppData {
+                main_content: BuildClosure(|_| {}),
+            }
+            .build(cx);
+
             Sidebar::new(cx);
-            Carousel::new(cx);
+            Binding::new(cx, AppData::main_content, |cx, lens| {
+                let content = lens.get(cx);
+                content.build(cx);
+            })
         });
     })
     .ignore_default_theme()

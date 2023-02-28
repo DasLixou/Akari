@@ -1,4 +1,3 @@
-pub mod carousel;
 pub mod item;
 pub mod sidebar;
 pub mod toggle_lens;
@@ -9,6 +8,22 @@ use self::item::{Items, SidebarItem};
 use self::toggle_lens::Toggle;
 
 use self::sidebar_carousel_derived_lenses as d;
+
+#[derive(Clone)]
+pub struct BuildClosure(pub fn(&mut Context));
+
+impl BuildClosure {
+    #[inline]
+    pub fn build(&self, cx: &mut Context) {
+        (self.0)(cx)
+    }
+}
+
+impl Data for BuildClosure {
+    fn same(&self, other: &Self) -> bool {
+        self.0 as usize == other.0 as usize
+    }
+}
 
 pub enum SidebarCarouselEvent {
     SelectItem(usize),
@@ -49,6 +64,9 @@ impl Model for SidebarCarousel {
             match event {
                 SidebarCarouselEvent::SelectItem(index) => {
                     self.selected = index;
+                    /*SidebarCarousel::items.get(cx)[selected]
+                    .behaviour
+                    .action(cx);*/
                 }
                 SidebarCarouselEvent::ShowMainItems => {
                     self.toggle = false;

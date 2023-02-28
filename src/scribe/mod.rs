@@ -2,7 +2,10 @@ use vizia::{prelude::*, vg::Path};
 
 use crate::{
     items,
-    sidebar_carousel::{item::SidebarItem, SidebarCarouselEvent},
+    sidebar_carousel::{
+        item::{ItemBehaviour, SidebarItem},
+        SidebarCarouselEvent,
+    },
 };
 
 use self::{brushes::Brush, display::PageDisplay};
@@ -38,7 +41,7 @@ impl Model for Page {
 pub fn scribe(cx: &mut Context) {
     cx.emit(SidebarCarouselEvent::ShowSubItems(items![SidebarItem {
         text: "Pen".into(),
-        content: |_| {},
+        behaviour: ItemBehaviour::Nothing
     }]));
     Page::default().build(cx);
     PageDisplay::new(cx, Page::paths);
