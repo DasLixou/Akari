@@ -17,6 +17,7 @@ impl Data for SidebarItem {
 #[derive(Clone, PartialEq)]
 pub enum ItemBehaviour {
     Page(BuildClosure),
+    ShowMainBar,
     Nothing, // TODO: remove that
 }
 
@@ -27,7 +28,7 @@ macro_rules! items {
     ($($x:expr),* $(,)?) => (
         $crate::sidebar_carousel::item::Items(vec![SidebarItem::Button(
             "Akari".into(),
-            $crate::sidebar_carousel::item::ItemBehaviour::Nothing,
+            $crate::sidebar_carousel::item::ItemBehaviour::ShowMainBar,
         ), $($x),+])
     );
 }

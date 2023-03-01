@@ -38,6 +38,7 @@ pub enum SidebarCarouselEvent {
 #[derive(Lens)]
 pub struct SidebarCarousel {
     pub main_items: Vec<SidebarItem>,
+    pub sub_items: Vec<SidebarItem>,
     pub items: Vec<SidebarItem>,
     pub selected: usize,
 }
@@ -46,6 +47,7 @@ impl SidebarCarousel {
     pub fn new(main_items: Items) -> Self {
         Self {
             main_items: main_items.0.clone(),
+            sub_items: vec![],
             items: main_items.0,
             selected: 0,
         }
@@ -62,6 +64,10 @@ impl Model for SidebarCarousel {
                         SidebarItem::Button(_, behaviour) => match behaviour {
                             ItemBehaviour::Page(closure) => {
                                 cx.emit(AppEvent::ChangeContent(closure.clone()));
+                                self.items = self.sub_items.clone();
+                            }
+                            ItemBehaviour::ShowMainBar => {
+                                self.items = self.main_items.clone();
                             }
                             ItemBehaviour::Nothing => {}
                         },
@@ -72,7 +78,8 @@ impl Model for SidebarCarousel {
                     self.items = self.main_items.clone();
                 }
                 SidebarCarouselEvent::ShowSubItems(items) => {
-                    self.items = items.0;
+                    self.sub_items = items.0;
+                    self.items = self.sub_items.clone();
                 }
             }
         }
