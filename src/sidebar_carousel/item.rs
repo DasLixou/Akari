@@ -1,6 +1,6 @@
 use vizia::prelude::Data;
 
-use super::{BuildClosure, EventClosure};
+use crate::closures::{BuildClosure, EventClosure};
 
 #[derive(Clone, PartialEq)]
 pub enum SidebarItem {

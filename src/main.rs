@@ -1,11 +1,13 @@
+pub mod closures;
 pub mod scribe;
 pub mod sidebar_carousel;
 
+use closures::BuildClosure;
 use scribe::SCRIBE;
 use sidebar_carousel::{
     item::{ItemBehaviour, SidebarItem},
     sidebar::Sidebar,
-    BuildClosure, SidebarCarousel,
+    SidebarCarousel,
 };
 use vizia::prelude::*;
 

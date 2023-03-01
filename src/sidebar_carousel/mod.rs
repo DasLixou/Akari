@@ -7,50 +7,6 @@ use crate::AppEvent;
 
 use self::item::{ItemBehaviour, Items, SidebarItem};
 
-#[derive(Clone)]
-pub struct BuildClosure(pub fn(&mut Context));
-
-impl BuildClosure {
-    #[inline]
-    pub fn build(&self, cx: &mut Context) {
-        (self.0)(cx)
-    }
-}
-
-impl PartialEq for BuildClosure {
-    fn eq(&self, other: &Self) -> bool {
-        self.0 as usize == other.0 as usize
-    }
-}
-
-impl Data for BuildClosure {
-    fn same(&self, other: &Self) -> bool {
-        self.eq(other)
-    }
-}
-
-#[derive(Clone)]
-pub struct EventClosure(pub fn(&mut EventContext));
-
-impl EventClosure {
-    #[inline]
-    pub fn build(&self, cx: &mut EventContext) {
-        (self.0)(cx)
-    }
-}
-
-impl PartialEq for EventClosure {
-    fn eq(&self, other: &Self) -> bool {
-        self.0 as usize == other.0 as usize
-    }
-}
-
-impl Data for EventClosure {
-    fn same(&self, other: &Self) -> bool {
-        self.eq(other)
-    }
-}
-
 pub enum SidebarCarouselEvent {
     PressItem(usize),
     ShowMainItems,
@@ -89,7 +45,7 @@ impl Model for SidebarCarousel {
                                 self.items = self.sub_items.clone();
                             }
                             ItemBehaviour::Action(closure) => {
-                                closure.build(cx);
+                                closure.emit(cx);
                             }
                             ItemBehaviour::ShowMainBar => {
                                 self.items = self.main_items.clone();

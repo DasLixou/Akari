@@ -1,10 +1,11 @@
 use vizia::{prelude::*, vg::Path};
 
 use crate::{
+    closures::{BuildClosure, EventClosure},
     items,
     sidebar_carousel::{
         item::{ItemBehaviour, SidebarItem},
-        BuildClosure, EventClosure, SidebarCarouselEvent,
+        SidebarCarouselEvent,
     },
 };
 
