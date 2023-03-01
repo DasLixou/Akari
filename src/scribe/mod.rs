@@ -48,23 +48,27 @@ pub fn scribe(cx: &mut Context) {
         SidebarItem::Button(
             "Pen".into(),
             ItemBehaviour::Action(EventClosure(|cx| {
-                cx.emit_custom(
-                    Event::new(CanvasEvent::SelectBrush(Brush::Pen))
-                        .target(Entity::root())
-                        .origin(cx.current())
-                        .propagate(Propagation::Subtree),
-                );
+                if let Some(canvas) = cx.resolve_entity_identifier("page_canvas") {
+                    cx.emit_custom(
+                        Event::new(CanvasEvent::SelectBrush(Brush::Pen))
+                            .target(canvas)
+                            .origin(cx.current())
+                            .propagate(Propagation::Subtree),
+                    );
+                }
             }))
         ),
         SidebarItem::Button(
             "Marker".into(),
             ItemBehaviour::Action(EventClosure(|cx| {
-                cx.emit_custom(
-                    Event::new(CanvasEvent::SelectBrush(Brush::Marker))
-                        .target(Entity::root())
-                        .origin(cx.current())
-                        .propagate(Propagation::Subtree),
-                );
+                if let Some(canvas) = cx.resolve_entity_identifier("page_canvas") {
+                    cx.emit_custom(
+                        Event::new(CanvasEvent::SelectBrush(Brush::Marker))
+                            .target(canvas)
+                            .origin(cx.current())
+                            .propagate(Propagation::Subtree),
+                    );
+                }
             })),
         )
     ]));

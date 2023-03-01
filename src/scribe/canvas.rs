@@ -31,6 +31,7 @@ where
         }
         .build(cx, |_cx| {})
         .size(Stretch(1.0))
+        .id("page_canvas")
     }
 }
 
