@@ -20,6 +20,7 @@ pub mod canvas;
 pub enum PageEvent {
     BeginPath((Brush, f32, f32)),
     ExtendPath((f32, f32)),
+    PopLastPath,
 }
 
 #[derive(Default, Lens)]
@@ -28,7 +29,7 @@ pub struct Page {
 }
 
 impl Model for Page {
-    fn event(&mut self, _cx: &mut EventContext, event: &mut Event) {
+    fn event(&mut self, cx: &mut EventContext, event: &mut Event) {
         event.map(|page_event, _| match page_event {
             PageEvent::BeginPath((paint, x, y)) => {
                 let mut path = Path::new();
@@ -37,6 +38,10 @@ impl Model for Page {
             }
             PageEvent::ExtendPath((x, y)) => {
                 self.paths.last_mut().unwrap().0.line_to(*x, *y);
+            }
+            PageEvent::PopLastPath => {
+                self.paths.pop();
+                cx.needs_redraw();
             }
         })
     }
@@ -68,6 +73,19 @@ pub fn scribe(cx: &mut Context) {
                             .target(canvas)
                             .origin(cx.current())
                             .propagate(Propagation::Subtree),
+                    );
+                }
+            })),
+        ),
+        SidebarItem::Button(
+            "Undo".into(),
+            ItemBehaviour::Action(EventClosure(|cx| {
+                if let Some(canvas) = cx.resolve_entity_identifier("page_canvas") {
+                    cx.emit_custom(
+                        Event::new(PageEvent::PopLastPath)
+                            .target(canvas)
+                            .origin(cx.current())
+                            .propagate(Propagation::Up),
                     );
                 }
             })),
