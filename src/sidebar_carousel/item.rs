@@ -1,6 +1,6 @@
 use vizia::prelude::Data;
 
-use super::BuildClosure;
+use super::{BuildClosure, EventClosure};
 
 #[derive(Clone, PartialEq)]
 pub enum SidebarItem {
@@ -17,6 +17,7 @@ impl Data for SidebarItem {
 #[derive(Clone, PartialEq)]
 pub enum ItemBehaviour {
     Page(BuildClosure),
+    Action(EventClosure),
     ShowMainBar,
     Nothing, // TODO: remove that
 }

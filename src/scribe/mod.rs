@@ -4,14 +4,17 @@ use crate::{
     items,
     sidebar_carousel::{
         item::{ItemBehaviour, SidebarItem},
-        BuildClosure, SidebarCarouselEvent,
+        BuildClosure, EventClosure, SidebarCarouselEvent,
     },
 };
 
-use self::{brushes::Brush, display::PageDisplay};
+use self::{
+    brushes::Brush,
+    canvas::{CanvasEvent, PageCanvas},
+};
 
 pub mod brushes;
-pub mod display;
+pub mod canvas;
 
 pub enum PageEvent {
     BeginPath((Brush, f32, f32)),
@@ -42,8 +45,29 @@ pub const SCRIBE: BuildClosure = BuildClosure(scribe);
 
 pub fn scribe(cx: &mut Context) {
     cx.emit(SidebarCarouselEvent::ShowSubItems(items![
-        SidebarItem::Button("Pen".into(), ItemBehaviour::Nothing)
+        SidebarItem::Button(
+            "Pen".into(),
+            ItemBehaviour::Action(EventClosure(|cx| {
+                cx.emit_custom(
+                    Event::new(CanvasEvent::SelectBrush(Brush::Pen))
+                        .target(Entity::root())
+                        .origin(cx.current())
+                        .propagate(Propagation::Subtree),
+                );
+            }))
+        ),
+        SidebarItem::Button(
+            "Marker".into(),
+            ItemBehaviour::Action(EventClosure(|cx| {
+                cx.emit_custom(
+                    Event::new(CanvasEvent::SelectBrush(Brush::Marker))
+                        .target(Entity::root())
+                        .origin(cx.current())
+                        .propagate(Propagation::Subtree),
+                );
+            })),
+        )
     ]));
     Page::default().build(cx);
-    PageDisplay::new(cx, Page::paths);
+    PageCanvas::new(cx, Page::paths);
 }

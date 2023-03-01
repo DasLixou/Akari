@@ -29,6 +29,28 @@ impl Data for BuildClosure {
     }
 }
 
+#[derive(Clone)]
+pub struct EventClosure(pub fn(&mut EventContext));
+
+impl EventClosure {
+    #[inline]
+    pub fn build(&self, cx: &mut EventContext) {
+        (self.0)(cx)
+    }
+}
+
+impl PartialEq for EventClosure {
+    fn eq(&self, other: &Self) -> bool {
+        self.0 as usize == other.0 as usize
+    }
+}
+
+impl Data for EventClosure {
+    fn same(&self, other: &Self) -> bool {
+        self.eq(other)
+    }
+}
+
 pub enum SidebarCarouselEvent {
     PressItem(usize),
     ShowMainItems,
@@ -65,6 +87,9 @@ impl Model for SidebarCarousel {
                             ItemBehaviour::Page(closure) => {
                                 cx.emit(AppEvent::ChangeContent(closure.clone()));
                                 self.items = self.sub_items.clone();
+                            }
+                            ItemBehaviour::Action(closure) => {
+                                closure.build(cx);
                             }
                             ItemBehaviour::ShowMainBar => {
                                 self.items = self.main_items.clone();

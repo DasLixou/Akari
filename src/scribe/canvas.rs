@@ -4,18 +4,22 @@ use vizia::{
     prelude::*,
     state::{Lens, LensExt},
     vg::Path,
-    view::{Canvas, View},
+    view::View,
 };
 
 use super::{brushes::Brush, PageEvent};
 
-pub struct PageDisplay<L: Lens> {
+pub enum CanvasEvent {
+    SelectBrush(Brush),
+}
+
+pub struct PageCanvas<L: Lens> {
     delta_mouse: Vec2,
     current_brush: Brush,
     paths: L,
 }
 
-impl<L> PageDisplay<L>
+impl<L> PageCanvas<L>
 where
     L: Lens<Target = Vec<(Path, Brush)>>,
 {
@@ -30,21 +34,12 @@ where
     }
 }
 
-impl<L> View for PageDisplay<L>
+impl<L> View for PageCanvas<L>
 where
     L: Lens<Target = Vec<(Path, Brush)>>,
 {
     fn event(&mut self, cx: &mut EventContext, event: &mut Event) {
         event.map(|window_event, meta| match window_event {
-            WindowEvent::KeyDown(code, _) => {
-                match code {
-                    Code::KeyM => {
-                        self.current_brush = Brush::Marker;
-                    }
-                    Code::KeyP => self.current_brush = Brush::Pen,
-                    _ => {}
-                };
-            }
             WindowEvent::MouseDown(_) => {
                 if let RelativeResult::Inside((rel_x, rel_y)) =
                     cx.relative_position(cx.mouse.cursorx, cx.mouse.cursory)
@@ -81,6 +76,14 @@ where
 
             _ => {}
         });
+
+        if let Some(event) = event.take() {
+            match event {
+                CanvasEvent::SelectBrush(brush) => {
+                    self.current_brush = brush;
+                }
+            }
+        }
     }
 
     fn draw(&self, cx: &mut DrawContext, canvas: &mut Canvas) {
