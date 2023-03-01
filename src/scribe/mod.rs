@@ -41,10 +41,9 @@ impl Model for Page {
 pub const SCRIBE: BuildClosure = BuildClosure(scribe);
 
 pub fn scribe(cx: &mut Context) {
-    cx.emit(SidebarCarouselEvent::ShowSubItems(items![SidebarItem {
-        text: "Pen".into(),
-        behaviour: ItemBehaviour::Nothing
-    }]));
+    cx.emit(SidebarCarouselEvent::ShowSubItems(items![
+        SidebarItem::Button("Pen".into(), ItemBehaviour::Nothing)
+    ]));
     Page::default().build(cx);
     PageDisplay::new(cx, Page::paths);
 }

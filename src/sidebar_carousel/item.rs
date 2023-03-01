@@ -1,14 +1,20 @@
-use vizia::prelude::*;
+use vizia::prelude::Data;
 
 use super::BuildClosure;
 
-#[derive(Lens, Clone)]
-pub struct SidebarItem {
-    pub text: String,
-    pub behaviour: ItemBehaviour,
+#[derive(Clone, PartialEq)]
+pub enum SidebarItem {
+    Button(String, ItemBehaviour),
+    Spacer,
 }
 
-#[derive(Clone)]
+impl Data for SidebarItem {
+    fn same(&self, other: &Self) -> bool {
+        self.eq(other)
+    }
+}
+
+#[derive(Clone, PartialEq)]
 pub enum ItemBehaviour {
     Page(BuildClosure),
     Nothing, // TODO: remove that
@@ -18,16 +24,10 @@ pub struct Items(pub Vec<SidebarItem>);
 
 #[macro_export]
 macro_rules! items {
-    () => (
-        $crate::sidebar_carousel::item::Items(vec![SidebarItem {
-            text: "Akari".into(),
-            behaviour: $crate::sidebar_carousel::item::ItemBehaviour::Nothing,
-        }])
-    );
-    ($($x:expr),+ $(,)?) => (
-        $crate::sidebar_carousel::item::Items(vec![SidebarItem {
-            text: "Akari".into(),
-            behaviour: $crate::sidebar_carousel::item::ItemBehaviour::Nothing,
-        }, $($x),+])
+    ($($x:expr),* $(,)?) => (
+        $crate::sidebar_carousel::item::Items(vec![SidebarItem::Button(
+            "Akari".into(),
+            $crate::sidebar_carousel::item::ItemBehaviour::Nothing,
+        ), $($x),+])
     );
 }

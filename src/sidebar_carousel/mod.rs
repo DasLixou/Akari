@@ -17,9 +17,15 @@ impl BuildClosure {
     }
 }
 
+impl PartialEq for BuildClosure {
+    fn eq(&self, other: &Self) -> bool {
+        self.0 as usize == other.0 as usize
+    }
+}
+
 impl Data for BuildClosure {
     fn same(&self, other: &Self) -> bool {
-        self.0 as usize == other.0 as usize
+        self.eq(other)
     }
 }
 
@@ -52,11 +58,14 @@ impl Model for SidebarCarousel {
             match event {
                 SidebarCarouselEvent::PressItem(index) => {
                     self.selected = index;
-                    match &self.items[index].behaviour {
-                        ItemBehaviour::Page(closure) => {
-                            cx.emit(AppEvent::ChangeContent(closure.clone()))
-                        }
-                        ItemBehaviour::Nothing => {}
+                    match &self.items[index] {
+                        SidebarItem::Button(_, behaviour) => match behaviour {
+                            ItemBehaviour::Page(closure) => {
+                                cx.emit(AppEvent::ChangeContent(closure.clone()));
+                            }
+                            ItemBehaviour::Nothing => {}
+                        },
+                        SidebarItem::Spacer => {}
                     }
                 }
                 SidebarCarouselEvent::ShowMainItems => {

@@ -12,14 +12,26 @@ impl Sidebar {
             .build(cx, |cx| {
                 cx.add_stylesheet("src/sidebar_carousel/style.css").unwrap();
 
-                List::new(cx, SidebarCarousel::items, |cx, index, item| {
-                    Button::new(
-                        cx,
-                        move |cx| cx.emit(SidebarCarouselEvent::PressItem(index)),
-                        |cx| Label::new(cx, item.then(SidebarItem::text)),
-                    )
-                    .class("sidebar_button")
-                    .checked(SidebarCarousel::selected.map(move |i| *i == index));
+                List::new(cx, SidebarCarousel::items, |cx, index, lens| {
+                    Binding::new(cx, lens, move |cx, lens| {
+                        let item = lens.get(cx);
+                        match item {
+                            SidebarItem::Button(text, _) => {
+                                Button::new(
+                                    cx,
+                                    move |cx| cx.emit(SidebarCarouselEvent::PressItem(index)),
+                                    |cx| Label::new(cx, &text),
+                                )
+                                .class("sidebar_button")
+                                .checked(SidebarCarousel::selected.map(move |i| *i == index));
+                            }
+                            SidebarItem::Spacer => {
+                                Element::new(cx)
+                                    .class("sidebar_element")
+                                    .height(Stretch(1.));
+                            }
+                        }
+                    });
                 });
             })
             .class("sidebar")

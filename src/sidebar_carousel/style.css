@@ -21,3 +21,10 @@
     background-color: black;
     color: white;
 }
+
+.sidebar_spacer {
+    background-color: white;
+    overflow: hidden;
+    width: 60px;
+    max-width: 60px;
+}

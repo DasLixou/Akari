@@ -36,22 +36,11 @@ fn main() {
     Application::new(|cx| {
         HStack::new(cx, |cx| {
             SidebarCarousel::new(items![
-                SidebarItem {
-                    text: "Scribe".into(),
-                    behaviour: ItemBehaviour::Page(SCRIBE),
-                },
-                SidebarItem {
-                    text: "Books".into(),
-                    behaviour: ItemBehaviour::Nothing,
-                },
-                SidebarItem {
-                    text: "Calendar".into(),
-                    behaviour: ItemBehaviour::Nothing,
-                },
-                SidebarItem {
-                    text: "Settings".into(),
-                    behaviour: ItemBehaviour::Nothing,
-                },
+                SidebarItem::Button("Scribe".into(), ItemBehaviour::Page(SCRIBE)),
+                SidebarItem::Button("Books".into(), ItemBehaviour::Nothing),
+                SidebarItem::Button("Calendar".into(), ItemBehaviour::Nothing),
+                SidebarItem::Spacer,
+                SidebarItem::Button("Settings".into(), ItemBehaviour::Nothing),
             ])
             .build(cx);
 
