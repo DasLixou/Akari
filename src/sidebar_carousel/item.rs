@@ -1,10 +1,10 @@
 use vizia::prelude::Data;
 
-use crate::closures::{BuildClosure, EventClosure};
+use crate::closures::{BuildClosure, EventClosure, InitClosure};
 
 #[derive(Clone, PartialEq)]
 pub enum SidebarItem {
-    Button(String, ItemBehaviour),
+    Button(String, ItemBehaviour, InitClosure),
     Spacer,
 }
 
@@ -30,6 +30,10 @@ macro_rules! items {
         $crate::sidebar_carousel::item::Items(vec![SidebarItem::Button(
             "Akari".into(),
             $crate::sidebar_carousel::item::ItemBehaviour::ShowMainBar,
+            $crate::closures::InitClosure(|cx| {
+                let index = cx.index;
+                cx.checked($crate::sidebar_carousel::SidebarCarousel::selected.map(move |i| *i == index));
+            }),
         ), $($x),+])
     );
 }

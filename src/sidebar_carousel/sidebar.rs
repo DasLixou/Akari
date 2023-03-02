@@ -1,5 +1,7 @@
 use vizia::prelude::*;
 
+use crate::closures::InitContext;
+
 use super::{SidebarCarousel, SidebarCarouselEvent, SidebarItem};
 
 pub const SIDEBAR_ELEMENT_SIZE: Units = Pixels(60.);
@@ -16,14 +18,16 @@ impl Sidebar {
                     Binding::new(cx, lens, move |cx, lens| {
                         let item = lens.get(cx);
                         match item {
-                            SidebarItem::Button(text, _) => {
+                            SidebarItem::Button(text, _, init_closure) => {
                                 Button::new(
                                     cx,
                                     move |cx| cx.emit(SidebarCarouselEvent::PressItem(index)),
-                                    |cx| Label::new(cx, &text),
+                                    |cx| {
+                                        init_closure.run(&mut InitContext { cx, index });
+                                        Label::new(cx, &text)
+                                    },
                                 )
-                                .class("sidebar_button")
-                                .checked(SidebarCarousel::selected.map(move |i| *i == index));
+                                .class("sidebar_button");
                             }
                             SidebarItem::Spacer => {
                                 Element::new(cx)

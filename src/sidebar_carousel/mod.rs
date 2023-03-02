@@ -39,13 +39,13 @@ impl Model for SidebarCarousel {
                 SidebarCarouselEvent::PressItem(index) => {
                     self.selected = index;
                     match &self.items[index] {
-                        SidebarItem::Button(_, behaviour) => match behaviour {
+                        SidebarItem::Button(_, behaviour, _) => match behaviour {
                             ItemBehaviour::Page(closure) => {
                                 cx.emit(AppEvent::ChangeContent(closure.clone()));
                                 self.items = self.sub_items.clone();
                             }
                             ItemBehaviour::Action(closure) => {
-                                closure.emit(cx);
+                                closure.run(cx);
                             }
                             ItemBehaviour::ShowMainBar => {
                                 self.items = self.main_items.clone();

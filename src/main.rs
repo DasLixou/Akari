@@ -2,7 +2,7 @@ pub mod closures;
 pub mod scribe;
 pub mod sidebar_carousel;
 
-use closures::BuildClosure;
+use closures::{BuildClosure, InitClosure};
 use scribe::SCRIBE;
 use sidebar_carousel::{
     item::{ItemBehaviour, SidebarItem},
@@ -38,11 +38,39 @@ fn main() {
     Application::new(|cx| {
         HStack::new(cx, |cx| {
             SidebarCarousel::new(items![
-                SidebarItem::Button("Scribe".into(), ItemBehaviour::Page(SCRIBE)),
-                SidebarItem::Button("Books".into(), ItemBehaviour::Nothing),
-                SidebarItem::Button("Calendar".into(), ItemBehaviour::Nothing),
+                SidebarItem::Button(
+                    "Scribe".into(),
+                    ItemBehaviour::Page(SCRIBE),
+                    InitClosure(|cx| {
+                        let index = cx.index;
+                        cx.checked(SidebarCarousel::selected.map(move |i| *i == index));
+                    }),
+                ),
+                SidebarItem::Button(
+                    "Books".into(),
+                    ItemBehaviour::Nothing,
+                    InitClosure(|cx| {
+                        let index = cx.index;
+                        cx.checked(SidebarCarousel::selected.map(move |i| *i == index));
+                    }),
+                ),
+                SidebarItem::Button(
+                    "Calendar".into(),
+                    ItemBehaviour::Nothing,
+                    InitClosure(|cx| {
+                        let index = cx.index;
+                        cx.checked(SidebarCarousel::selected.map(move |i| *i == index));
+                    }),
+                ),
                 SidebarItem::Spacer,
-                SidebarItem::Button("Settings".into(), ItemBehaviour::Nothing),
+                SidebarItem::Button(
+                    "Settings".into(),
+                    ItemBehaviour::Nothing,
+                    InitClosure(|cx| {
+                        let index = cx.index;
+                        cx.checked(SidebarCarousel::selected.map(move |i| *i == index));
+                    }),
+                ),
             ])
             .build(cx);
 
@@ -54,7 +82,7 @@ fn main() {
             Sidebar::new(cx);
             Binding::new(cx, AppData::main_content, |cx, lens| {
                 let content = lens.get(cx);
-                content.build(cx);
+                content.run(cx);
             })
         });
     })

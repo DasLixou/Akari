@@ -1,7 +1,7 @@
 use vizia::{prelude::*, vg::Path};
 
 use crate::{
-    closures::{BuildClosure, EventClosure},
+    closures::{BuildClosure, EventClosure, InitClosure},
     items,
     sidebar_carousel::{
         item::{ItemBehaviour, SidebarItem},
@@ -62,7 +62,8 @@ pub fn scribe(cx: &mut Context) {
                             .propagate(Propagation::Subtree),
                     );
                 }
-            }))
+            })),
+            InitClosure(|_| {}),
         ),
         SidebarItem::Button(
             "Marker".into(),
@@ -76,6 +77,9 @@ pub fn scribe(cx: &mut Context) {
                     );
                 }
             })),
+            InitClosure(|cx| {
+                cx.checked(true);
+            }),
         ),
         SidebarItem::Button(
             "Undo".into(),
@@ -89,6 +93,7 @@ pub fn scribe(cx: &mut Context) {
                     );
                 }
             })),
+            InitClosure(|_| {}),
         )
     ]));
     Page::default().build(cx);
