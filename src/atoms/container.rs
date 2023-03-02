@@ -1,6 +1,7 @@
 use std::{any::Any, borrow::Borrow};
 
 use hashbrown::HashMap;
+use once_cell::sync::Lazy;
 use vizia::{prelude::*, state::Lens};
 
 use super::atom::Atom;
@@ -21,18 +22,19 @@ impl AtomContainer {
         }
     }
 
-    pub fn lens<T: Sized + Clone + 'static>(atom: Atom<T>) -> impl Lens<Target = T>
+    pub fn lens<T: Sized + Clone + 'static>(atom: &Atom<T>) -> impl Lens<Target = T>
     where
         Atom<T>: Borrow<Atom<T>>,
     {
+        let key = Lazy::force(&atom.key).to_owned();
         AtomContainer::map.map(move |map| {
-            let b = map.get(&atom.key).expect("Atom wasn't set");
+            let b = map.get(&key).expect("Atom wasn't set");
             unsafe { b.downcast_ref::<T>().unwrap_unchecked().clone() }
         })
     }
 
-    pub fn set<T: Sized + Send + 'static>(atom: Atom<T>, value: T) -> ContainerEvent {
-        ContainerEvent::SetAtom(atom.key, Box::new(value))
+    pub fn set<T: Sized + Send + 'static>(atom: &Atom<T>, value: T) -> ContainerEvent {
+        ContainerEvent::SetAtom(Lazy::force(&atom.key).to_owned(), Box::new(value))
     }
 }
 

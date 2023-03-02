@@ -65,7 +65,7 @@ pub fn scribe(cx: &mut Context) {
                 }
             })),
             InitClosure(|cx| {
-                cx.checked(AtomContainer::lens(CURRENT_BRUSH).map(|brush| brush.eq(&Brush::Pen)));
+                cx.checked(AtomContainer::lens(&CURRENT_BRUSH).map(|brush| brush.eq(&Brush::Pen)));
             }),
         ),
         SidebarItem::Button(
@@ -82,7 +82,7 @@ pub fn scribe(cx: &mut Context) {
             })),
             InitClosure(|cx| {
                 cx.checked(
-                    AtomContainer::lens(CURRENT_BRUSH).map(|brush| brush.eq(&Brush::Marker)),
+                    AtomContainer::lens(&CURRENT_BRUSH).map(|brush| brush.eq(&Brush::Marker)),
                 );
             }),
         ),

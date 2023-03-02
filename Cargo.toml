@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 glam = "0.23.0"
 hashbrown = "0.13.2"
+once_cell = "1.17.1"
 vizia = { git = "https://github.com/DasLixou/vizia", branch = "event-relative-bounding-pos" }
 
 [patch.crates-io]

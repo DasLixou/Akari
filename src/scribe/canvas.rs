@@ -15,7 +15,7 @@ pub enum CanvasEvent {
     SelectBrush(Brush),
 }
 
-pub const CURRENT_BRUSH: Atom<Brush> = Atom::new(13);
+pub static CURRENT_BRUSH: Atom<Brush> = Atom::new();
 
 #[derive(Lens)]
 pub struct PageCanvas<L: Lens> {
@@ -33,7 +33,7 @@ where
             delta_mouse: Vec2::ZERO,
         }
         .build(cx, |cx| {
-            cx.emit(AtomContainer::set(CURRENT_BRUSH, Brush::Pen))
+            cx.emit(AtomContainer::set(&CURRENT_BRUSH, Brush::Pen))
         })
         .size(Stretch(1.0))
         .id("page_canvas")
@@ -51,7 +51,7 @@ where
                     cx.relative_position(cx.mouse.cursorx, cx.mouse.cursory)
                 {
                     cx.emit(PageEvent::BeginPath((
-                        AtomContainer::lens(CURRENT_BRUSH).get(cx),
+                        AtomContainer::lens(&CURRENT_BRUSH).get(cx),
                         rel_x,
                         rel_y,
                     )));
@@ -67,7 +67,7 @@ where
                 if meta.target == cx.current() && cx.mouse.left.state == MouseButtonState::Pressed {
                     let mouse = Vec2::new(rel_x, rel_y);
                     if mouse.distance(self.delta_mouse)
-                        > AtomContainer::lens(CURRENT_BRUSH).get(cx).spacing()
+                        > AtomContainer::lens(&CURRENT_BRUSH).get(cx).spacing()
                     {
                         self.delta_mouse = mouse;
                         cx.emit(PageEvent::ExtendPath((rel_x, rel_y)));
@@ -88,7 +88,7 @@ where
         if let Some(event) = event.take() {
             match event {
                 CanvasEvent::SelectBrush(brush) => {
-                    cx.emit(AtomContainer::set(CURRENT_BRUSH, brush));
+                    cx.emit(AtomContainer::set(&CURRENT_BRUSH, brush));
                 }
             }
         }

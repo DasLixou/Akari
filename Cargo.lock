@@ -67,6 +67,7 @@ version = "0.1.0"
 dependencies = [
  "glam",
  "hashbrown 0.13.2",
+ "once_cell",
  "vizia",
 ]
 
