@@ -51,7 +51,7 @@ where
                     cx.relative_position(cx.mouse.cursorx, cx.mouse.cursory)
                 {
                     cx.emit(PageEvent::BeginPath((
-                        AtomContainer::lens(&CURRENT_BRUSH).get(cx),
+                        AtomContainer::get(cx, &CURRENT_BRUSH),
                         rel_x,
                         rel_y,
                     )));
@@ -67,7 +67,7 @@ where
                 if meta.target == cx.current() && cx.mouse.left.state == MouseButtonState::Pressed {
                     let mouse = Vec2::new(rel_x, rel_y);
                     if mouse.distance(self.delta_mouse)
-                        > AtomContainer::lens(&CURRENT_BRUSH).get(cx).spacing()
+                        > AtomContainer::get(cx, &CURRENT_BRUSH).spacing()
                     {
                         self.delta_mouse = mouse;
                         cx.emit(PageEvent::ExtendPath((rel_x, rel_y)));

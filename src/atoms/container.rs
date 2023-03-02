@@ -33,6 +33,14 @@ impl AtomContainer {
         })
     }
 
+    #[inline]
+    pub fn get<T: Sized + Clone + 'static, C: DataContext>(cx: &C, atom: &Atom<T>) -> T
+    where
+        Atom<T>: Borrow<Atom<T>>,
+    {
+        AtomContainer::lens(atom).get(cx)
+    }
+
     pub fn set<T: Sized + Send + 'static>(atom: &Atom<T>, value: T) -> ContainerEvent {
         ContainerEvent::SetAtom(Lazy::force(&atom.key).to_owned(), Box::new(value))
     }
