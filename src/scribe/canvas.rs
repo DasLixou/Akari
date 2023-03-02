@@ -7,15 +7,19 @@ use vizia::{
     view::View,
 };
 
+use crate::atoms::{atom::Atom, container::AtomContainer};
+
 use super::{brushes::Brush, PageEvent};
 
 pub enum CanvasEvent {
     SelectBrush(Brush),
 }
 
+pub const CURRENT_BRUSH: Atom<Brush> = Atom::new(13);
+
+#[derive(Lens)]
 pub struct PageCanvas<L: Lens> {
     delta_mouse: Vec2,
-    current_brush: Brush,
     paths: L,
 }
 
@@ -27,9 +31,10 @@ where
         Self {
             paths,
             delta_mouse: Vec2::ZERO,
-            current_brush: Brush::Pen,
         }
-        .build(cx, |_cx| {})
+        .build(cx, |cx| {
+            cx.emit(AtomContainer::set(CURRENT_BRUSH, Brush::Pen))
+        })
         .size(Stretch(1.0))
         .id("page_canvas")
     }
@@ -46,7 +51,7 @@ where
                     cx.relative_position(cx.mouse.cursorx, cx.mouse.cursory)
                 {
                     cx.emit(PageEvent::BeginPath((
-                        self.current_brush.clone(),
+                        AtomContainer::lens(CURRENT_BRUSH).get(cx),
                         rel_x,
                         rel_y,
                     )));
@@ -61,7 +66,9 @@ where
                 let (rel_x, rel_y) = cx.relative_position(*x, *y).unwrap();
                 if meta.target == cx.current() && cx.mouse.left.state == MouseButtonState::Pressed {
                     let mouse = Vec2::new(rel_x, rel_y);
-                    if mouse.distance(self.delta_mouse) > self.current_brush.spacing() {
+                    if mouse.distance(self.delta_mouse)
+                        > AtomContainer::lens(CURRENT_BRUSH).get(cx).spacing()
+                    {
                         self.delta_mouse = mouse;
                         cx.emit(PageEvent::ExtendPath((rel_x, rel_y)));
                         cx.needs_redraw();
@@ -81,7 +88,7 @@ where
         if let Some(event) = event.take() {
             match event {
                 CanvasEvent::SelectBrush(brush) => {
-                    self.current_brush = brush;
+                    cx.emit(AtomContainer::set(CURRENT_BRUSH, brush));
                 }
             }
         }

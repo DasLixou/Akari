@@ -1,7 +1,9 @@
+pub mod atoms;
 pub mod closures;
 pub mod scribe;
 pub mod sidebar_carousel;
 
+use atoms::container::AtomContainer;
 use closures::{BuildClosure, InitClosure};
 use scribe::SCRIBE;
 use sidebar_carousel::{
@@ -36,6 +38,8 @@ impl Model for AppData {
 
 fn main() {
     Application::new(|cx| {
+        AtomContainer::new().build(cx);
+
         HStack::new(cx, |cx| {
             SidebarCarousel::new(items![
                 SidebarItem::Button(

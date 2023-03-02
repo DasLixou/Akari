@@ -1,6 +1,7 @@
 use vizia::{prelude::*, vg::Path};
 
 use crate::{
+    atoms::container::AtomContainer,
     closures::{BuildClosure, EventClosure, InitClosure},
     items,
     sidebar_carousel::{
@@ -11,7 +12,7 @@ use crate::{
 
 use self::{
     brushes::Brush,
-    canvas::{CanvasEvent, PageCanvas},
+    canvas::{CanvasEvent, PageCanvas, CURRENT_BRUSH},
 };
 
 pub mod brushes;
@@ -63,7 +64,9 @@ pub fn scribe(cx: &mut Context) {
                     );
                 }
             })),
-            InitClosure(|_| {}),
+            InitClosure(|cx| {
+                cx.checked(AtomContainer::lens(CURRENT_BRUSH).map(|brush| brush.eq(&Brush::Pen)));
+            }),
         ),
         SidebarItem::Button(
             "Marker".into(),
@@ -78,7 +81,9 @@ pub fn scribe(cx: &mut Context) {
                 }
             })),
             InitClosure(|cx| {
-                cx.checked(true);
+                cx.checked(
+                    AtomContainer::lens(CURRENT_BRUSH).map(|brush| brush.eq(&Brush::Marker)),
+                );
             }),
         ),
         SidebarItem::Button(

@@ -1,6 +1,6 @@
 use vizia::vg::{Color, LineCap, Paint};
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum Brush {
     Pen,
     Marker,
