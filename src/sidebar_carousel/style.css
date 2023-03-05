@@ -22,6 +22,11 @@
     color: white;
 }
 
+.sidebar_button:active {
+    background-color: black;
+    color: white;
+}
+
 .sidebar_spacer {
     background-color: white;
     overflow: hidden;
